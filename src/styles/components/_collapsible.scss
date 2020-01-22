@@ -1,0 +1,28 @@
+.collapsible {
+  border: 1px solid lightgray;
+  margin-bottom: 1rem;
+  padding: spacer(2);
+  position: relative;
+}
+
+.collapsible-headline {
+  cursor: pointer;
+  font-size: 24px;
+  margin-bottom: 0px;
+  position: relative;
+}
+
+.collapsible-headline .fas {
+  position: absolute;
+  right: 0px;
+  top: 50%;
+  transform: translateY(-50%);
+  transform-origin: top center;
+  transition: transform $animation-duration;
+}
+
+// State: isActive
+
+.collapsible.isActive .collapsible-headline .fas {
+  transform: rotateX(180deg) translateY(-50%);
+}

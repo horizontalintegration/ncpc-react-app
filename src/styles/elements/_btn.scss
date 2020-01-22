@@ -1,0 +1,21 @@
+.btn {
+  @include font-primary('bold');
+
+  border-radius: $spacer-size;
+  font-size: 12px;
+  padding: $spacer-size * 1.5;
+  transition: background-color 0.35s;
+}
+
+.btn-lg {
+  min-width: 140px;
+  padding: ($spacer-size * 2) ($spacer-size * 4);
+}
+
+.btn-primary {
+  background: $primary;
+
+  &:hover {
+    background: $primary-active;
+  }
+}

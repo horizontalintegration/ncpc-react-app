@@ -1,0 +1,65 @@
+#multiselectContainerReact {
+
+  &:hover {
+
+    & > *:first-child {
+      border-color: $color-black;
+      box-shadow: inset 0 0 4px $color-black;
+      outline: none;
+    }
+  }
+}
+
+#multiselectContainerReact > *:first-child {
+  border: 1px solid $color-gray-dark;
+  border-radius: 8px;
+  min-height: auto;
+  padding: 0px;
+}
+
+#multiselectContainerReact .checkbox {
+  background-color: $color-white;
+  box-sizing: border-box;
+  height: 12px;
+  outline: 1px solid $form-multiselect-checkbox-border;
+  width: 12px;
+  -webkit-appearance: none;
+
+  &:checked {
+    background-color: $primary;
+    border: 1px $primary solid;
+    outline-color: $primary;
+  }
+}
+
+#multiselectContainerReact .chip {
+  background: transparent;
+  color: $form-multiselect-color;
+  margin-bottom: 0px;
+  margin-right: 0px;
+}
+
+#multiselectContainerReact .option {
+  background: transparent;
+  color: $color-gray-dark;
+  font-size: 12px;
+  line-height: 14px;
+  padding: spacer(1) spacer(1);
+
+  &:hover {
+    background: $color-gray-extralight;
+    color: $color-gray-dark;
+  }
+}
+
+#multiselectContainerReact .optionContainer {
+  border: 1px solid $primary;
+  border-radius: 8px;
+}
+
+#multiselectContainerReact .searchBox {
+  font-size: 12px;
+  line-height: 14px;
+  margin-top: 0px;
+  padding: spacer(1.5) spacer(1);
+}

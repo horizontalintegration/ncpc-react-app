@@ -1,0 +1,35 @@
+.card {}
+
+// 
+// MIXINS
+// 
+
+// CHECKBOX
+
+.card.mix_checkbox {
+  background-color: transparent;
+  border-radius: 0px;
+  margin-top: 3em;
+  transition: border-color $animation-duration;
+
+  @media screen and (min-width: $screen-lg-min) {
+    margin-top: 0px;
+  }
+}
+
+.card.mix_checkbox .card-body {
+  padding: spacer(2);
+}
+
+.card.mix_checkbox .card-img-top {
+  height: auto;
+  margin: 0 auto;
+  margin-top: -3rem;
+  width: 170px;
+}
+
+// State: isActive
+
+.form-check.isActive .card.mix_checkbox {
+  border: 1px solid $primary;
+}
