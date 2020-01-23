@@ -13,9 +13,11 @@
 }
 
 .btn-primary {
-  background: $primary;
+  background: var(--brand-primary);
+  border-color: var(--brand-primary);
 
   &:hover {
-    background: $primary-active;
+    background: var(--brand-primary-active);
+    border-color: var(--brand-primary-active);
   }
 }

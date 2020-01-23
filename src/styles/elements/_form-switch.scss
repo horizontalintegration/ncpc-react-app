@@ -62,7 +62,7 @@
 }
 
 .form-switch-text {
-  flex: 1 1 0;
+  flex-grow: 1;
 }
 
 .form-switch-toggle {
@@ -94,7 +94,11 @@
 // State: isActive
 
 .form-switch.isActive .form-switch-toggle {
-  background-color: $primary;
+  background-color: var(--brand-primary);
+}
+
+.form-switch.isActive:hover .form-switch-toggle {
+  background-color: var(--brand-primary-active);
 }
 
 .form-switch.isActive .form-switch-toggle::after {

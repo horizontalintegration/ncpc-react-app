@@ -26,9 +26,9 @@
   -webkit-appearance: none;
 
   &:checked {
-    background-color: $primary;
-    border: 1px $primary solid;
-    outline-color: $primary;
+    background-color: var(--brand-primary);
+    border: 1px var(--brand-primary) solid;
+    outline-color: var(--brand-primary);
   }
 }
 
@@ -45,15 +45,21 @@
   font-size: 12px;
   line-height: 14px;
   padding: spacer(1) spacer(1);
+}
 
-  &:hover {
-    background: $color-gray-extralight;
-    color: $color-gray-dark;
-  }
+#multiselectContainerReact .option:hover {
+  background: $color-gray-extralight;
+  color: $color-gray-dark;
+}
+
+#multiselectContainerReact .option:hover .checkbox:checked {
+  background-color: var(--brand-primary-active);
+  border: 1px var(--brand-primary-active) solid;
+  outline-color: var(--brand-primary-active);
 }
 
 #multiselectContainerReact .optionContainer {
-  border: 1px solid $primary;
+  border: 1px solid var(--brand-primary);
   border-radius: 8px;
 }
 

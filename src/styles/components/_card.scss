@@ -8,8 +8,11 @@
 
 .card.mix_checkbox {
   background-color: transparent;
+  border: none;
   border-radius: 0px;
+  display: block;
   margin-top: 3em;
+  text-align: center;
   transition: border-color $animation-duration;
 
   @media screen and (min-width: $screen-lg-min) {
@@ -19,6 +22,7 @@
 
 .card.mix_checkbox .card-body {
   padding: spacer(2);
+  text-align: left;
 }
 
 .card.mix_checkbox .card-img-top {
@@ -26,10 +30,4 @@
   margin: 0 auto;
   margin-top: -3rem;
   width: 170px;
-}
-
-// State: isActive
-
-.form-check.isActive .card.mix_checkbox {
-  border: 1px solid $primary;
 }

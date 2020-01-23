@@ -1,5 +1,7 @@
 .form-check {
+  border: 1px solid $form-check-toggle-outline;
   padding-left: 0px;
+  transition: border $animation-duration;
 }
 
 .form-check-description {
@@ -25,6 +27,7 @@
 
   cursor: pointer;
   line-height: 20px;
+  transition: color $animation-duration;
 }
 
 .form-check-toggle {
@@ -40,10 +43,24 @@
 
 // State: isActive
 
+.form-check.isActive {
+  border: 1px solid var(--brand-primary);
+
+  &:hover{
+    border: 1px solid var(--brand-primary-active);
+  }
+}
+
 .form-check.isActive .form-check-toggle {
-  background-color: $primary;
-  border: 1px solid $primary;
-  outline-color: $primary;
+  background-color: var(--brand-primary);
+  border: 1px solid var(--brand-primary);
+  outline-color: var(--brand-primary);
+}
+
+.form-check.isActive:hover .form-check-toggle {
+  background-color: var(--brand-primary-active);
+  border: 1px solid var(--brand-primary-active);
+  outline-color: var(--brand-primary-active);
 }
 
 .form-check.isActive .form-check-description {
@@ -51,5 +68,9 @@
 }
 
 .form-check.isActive .form-check-label {
-  color: $primary;
+  color: var(--brand-primary);
+}
+
+.form-check.isActive:hover .form-check-label {
+  color: var(--brand-primary-active);
 }

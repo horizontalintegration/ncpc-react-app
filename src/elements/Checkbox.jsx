@@ -31,7 +31,7 @@ class Checkbox extends React.Component {
       <div className={"form-check" + (this.state.checked ? ' isActive' : '')}>
         <input className="form-check-input" id={this.state.id} type="checkbox" defaultChecked={this.state.checked} onClick={this.handleClick} />
         <label className="form-check-label" htmlFor={this.state.id}>
-          <div className="card h-100 mix_checkbox">
+          <div className="card mix_checkbox">
             <img src={this.state.imageUrl} className="card-img-top" />
             <div className="card-body">
               <div className="form-check-toggle" />

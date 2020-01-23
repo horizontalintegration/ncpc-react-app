@@ -29,7 +29,7 @@ class MyInterests extends React.Component {
           {
             "checked": true,
             "controlType": "checkbox",
-            "description": "Learn more about how Salesforce enforces equality.",
+            "description": "Learn more about how Salesforce enforces equality. Learn more about how Salesforce enforces equality.",
             "disabled": false,
             "id": "a012E00000hXAoHQAW",
             "imageUrl": "https://image.s10.sfmc-content.com/lib/fe3f157075640674761471/m/1/8c5bb801-5370-44a7-a043-ca40d2ff2af5.png",
@@ -46,7 +46,7 @@ class MyInterests extends React.Component {
       return (
         interestGroup.interests.map(interest => {
           return (
-            <div className="col mb-4" key={interest.id}>
+            <div className="d-flex align-items-stretch pb-3 pl-3 pr-3" key={interest.id}>
               <Checkbox attributes={interest} />
             </div>
           )
