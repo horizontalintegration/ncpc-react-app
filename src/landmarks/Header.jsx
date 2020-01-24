@@ -1,11 +1,27 @@
 import React from 'react';
 
+import { isEqual } from 'lodash';
+
 class Header extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      logo: props.logo
+    };
+  }
+
+  componentDidUpdate(prevProps) {
+    if(!isEqual(this.props.logo, prevProps.logo)) {
+      this.setState({ logo:this.props.logo });
+    }
+  }
+
   render() {
     return (
       <header>
         <div className="container">
-          <img className="header-logo" src="https://image.s10.sfmc-content.com/lib/fe3215707564077a7c1c71/m/1/7ceedbbc-d950-45e8-997e-d3199e248ac4.png" alt="Salesforce® Logo" />
+          <img className="header-logo" src={this.state.logo.url} alt={this.state.logo.label} />
           <ul className="header-locale list-inline">
             <li className="list-inline-item">English</li>
           </ul>

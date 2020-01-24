@@ -134,7 +134,7 @@ class MySubscriptions extends React.Component {
     ];
 
     const fieldGroups = subscriptions.map(subscription => {
-      return(
+      return (
         <Collapsible attributes={subscription} key={subscription.id} />
       )
     });

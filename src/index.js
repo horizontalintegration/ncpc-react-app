@@ -4,7 +4,8 @@ import cssVars from 'css-vars-ponyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { Styles } from './elements';
+import ConfigService from './shared/mock-config-service';
+
 import { Footer, Header, Main } from './landmarks';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -13,11 +14,33 @@ import './styles/main.scss';
 import 'bootstrap/dist/js/bootstrap.bundle';
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      banner: '',
+      colors: [],
+      images: {
+        banner: {},
+        logo: {}
+      },
+      sections: []
+    };
+
+    this.configService = new ConfigService();
+  }
+
+  componentDidMount() {
+    this.configService.getConfig().then(config => {
+      this.setState(config);
+    })
+  }
+
   render() {
     return (
       <React.Fragment>
-        <Header />
-        <Main />
+        <Header logo={this.state.images.logo} />
+        <Main banner={this.state.banner} sections={this.state.sections} />
         <Footer />
       </React.Fragment>
     )

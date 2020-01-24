@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { isEqual } from 'lodash';
+
 class Sidebar extends React.Component {
   constructor(props) {
     super(props);
@@ -8,6 +10,12 @@ class Sidebar extends React.Component {
 
     this.state = {
       sections: sections
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if(!isEqual(this.props.sections, prevProps.sections)) {
+      this.setState({ sections:this.props.sections });
     }
   }
 

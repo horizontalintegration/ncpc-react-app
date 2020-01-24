@@ -1,31 +1,38 @@
 import React from 'react';
 
+import { isEqual, sortBy } from 'lodash';
+
 import { Section } from '../elements';
 import { Sidebar } from '../landmarks';
 
 class Main extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      banner: '',
+      sections: [],
+    };
+  }
+
+  componentDidUpdate(prevProps) {
+    if(!isEqual(this.props.banner, prevProps.banner)) {
+      this.setState({ banner:this.props.banner });
+    }
+
+    if(!isEqual(this.props.sections, prevProps.sections)) {
+      const sorted = sortBy(this.props.sections, 'order');
+
+      this.setState({ sections:sorted });
+    }
+  }
+
   render() {
-    const sections = [
-      {
-        "description": "When you subscribe to our monthly newsletter, you'll receive news about products, trends and more. Update you newsletter subscription to select the newsletter that best fits you. You can change this at any time.",
-        "headline": "My Profile",
-        "id": "my-profile",
-        "order": 0,
-        "webServiceUrl": "????",
-      },{
-        "description": "",
-        "headline": "My Interests",
-        "id": "my-interests",
-        "order": 1,
-        "webServiceUrl": "????",
-      },{
-        "description": "",
-        "headline": "My Subscriptions",
-        "id": "my-subscriptions",
-        "order": 2,
-        "webServiceUrl": "????",
-      }
-    ];
+    const sections = this.state.sections.map(section => {
+      return (
+        <Section description={section.description} headline={section.headline} id={section.id} key={section.id} webServiceUrl={section.webServiceUrl} />
+      )
+    });
 
     return (
       <main>
@@ -33,19 +40,17 @@ class Main extends React.Component {
           <div className="container-fluid">
             <div className="hero">
               <div className="container">
-                <h1 className="hero-heading">Manage Salesforce<sup>®</sup> Subscriptions</h1>
+                <h1 className="hero-heading">{this.state.banner}</h1>
               </div>
             </div>
           </div>
           <div className="container">
             <div className="row">
               <div className="col-lg-3">
-                <Sidebar sections={sections} />
+                <Sidebar sections={this.state.sections} />
               </div>
               <div className="col-lg-9">
-                <Section description={sections[0].description} headline={sections[0].headline} id={sections[0].id} />
-                <Section headline={sections[1].headline} id={sections[1].id} />
-                <Section headline={sections[2].headline} id={sections[2].id} />
+                {sections}
               </div>
             </div>
           </div>
