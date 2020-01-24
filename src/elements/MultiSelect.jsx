@@ -1,7 +1,5 @@
 import React from 'react';
-
-// SEE: https://github.com/srigar/multiselect-react-dropdown
-import { Multiselect as MultiselectReact} from 'multiselect-react-dropdown';
+import Select from 'react-select'; // SEE: https://github.com/JedWatson/react-select
 
 class MultiSelect extends React.Component {
   constructor(props) {
@@ -18,31 +16,22 @@ class MultiSelect extends React.Component {
       label: attributes.label,
       options: attributes.options,
       placeholder: attributes.placeholder,
-      value: attributes.value
+      value: (attributes.value && Array.isArray(attributes.value)) ? attributes.value : []
+    }
+
+    this.onChange = selectedOption => {
+      console.log(selectedOption);
     }
   }
 
   render() {
-    const options = this.state.options.map((option) =>
-      <option key={option.id} value={option.value}>{option.label}</option>
-    );
-
     return (
       <div className="form-group">
         <label htmlFor={this.state.id}>{this.state.label}</label>
-        <MultiselectReact displayValue="label" onRemove={this.onRemove} onSelect={this.onSelect} options={this.state.options} placeholder={this.state.placeholder} showCheckbox={true} />
+        <Select className="form-multiselect" closeMenuOnSelect={false} defaultValue={this.state.value} isMulti={true} isSearchable={true} onChange={this.onChange} options={this.state.options} placeholder={this.state.placeholder} />
         {this.state.helpText ? <small className="form-text text-muted" id={this.state.helpId}>{this.state.helpText}</small> : ''}
       </div>
     )
-  }
-
-  onSelect(optionsList, selectedItem) {
-    return false;
-    // console.log(optionsList, selectedItem);
-  }
-
-  onRemove(optionList, removedItem) {
-    // console.log(optionList, removedItem);
   }
 }
 

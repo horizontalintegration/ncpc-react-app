@@ -1,4 +1,4 @@
-# NCPC React App
+# No-Code Preference Center React App
 
 ## Requirements
 

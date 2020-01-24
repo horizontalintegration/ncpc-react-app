@@ -79,7 +79,16 @@ class MyProfile extends React.Component {
           }
         ],
         placeholder: 'Select options',
-        value: ''
+        value: [
+          {
+            id: 'a0Y2E00000c6W0xUAE',
+            key: 'Value 2 (Option)',
+            label: 'Value 2 (Option)',
+            order: 1,
+            value: 'a0Y2E00000c6W0xUAE',
+            selected: false
+          }
+        ]
       }
     ]
 
