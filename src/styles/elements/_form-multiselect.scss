@@ -18,6 +18,10 @@
   }
 }
 
+.form-multiselect *[class*='-control'] > * {
+  padding: 2px 6px;
+}
+
 .form-multiselect *[class*='-indicatorContainer'] {
   color: $color-gray-dark;
   cursor: pointer;
@@ -51,7 +55,7 @@
 }
 
 .form-multiselect *[class*='-multiValue'] {
-  border-radius: 4px;
+  border-radius: 6px;
   font-size: 12px;
 }
 
