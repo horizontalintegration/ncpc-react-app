@@ -48,7 +48,7 @@ class ConfigService {
           headline: 'My Profile',
           id: 'my-profile',
           order: 0,
-          webServiceUrl: '????"',
+          webServiceUrl: '????',
         }
       ]
     };
