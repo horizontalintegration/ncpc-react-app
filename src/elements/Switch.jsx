@@ -14,14 +14,20 @@ class Switch extends React.Component {
       label: attributes.label
     }
 
-    this.handleClick = this.handleClick.bind(this);
+    /*
+     * EVENT HANDLERS
+     */
+
+    this.handleClick = event => {
+      this.setState(state => ({
+        checked: !state.checked
+      }))
+    }
   }
 
-  handleClick() {
-    this.setState(state => ({
-      checked: !state.checked
-    }))
-  }
+  /*
+   * LIFECYCLE METHODS
+   */
 
   render() {
     return (

@@ -16,14 +16,20 @@ class Collapsible extends React.Component {
       subscriptions: attributes.subscriptions
     }
 
-    this.handleClick = this.handleClick.bind(this);
+    /*
+     * EVENT HANDLERS
+     */
+
+    this.handleClick = event => {
+      this.setState(state => ({
+        isActive: !state.isActive
+      }))
+    }
   }
 
-  handleClick() {
-    this.setState(state => ({
-      isActive: !state.isActive
-    }))
-  }
+  /*
+   * LIFECYCLE METHODS
+   */
 
   render() {
     const fieldGroups = this.state.subscriptions.map(subscription => {

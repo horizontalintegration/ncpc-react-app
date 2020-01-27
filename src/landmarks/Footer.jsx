@@ -9,6 +9,10 @@ class Footer extends React.Component {
     };
   }
 
+  /*
+   * LIFECYCLE METHODS
+   */
+
   render() {
     return (
       <footer>

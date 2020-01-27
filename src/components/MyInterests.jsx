@@ -18,6 +18,10 @@ class MyInterests extends React.Component {
     this.myInterestsService = new MyInterestsService(this.state.webServiceUrl);
   }
 
+  /*
+   * LIFECYCLE METHODS
+   */
+
   componentDidMount() {
     this.myInterestsService.get().then(fieldGroups => {
       const sortedfieldGroups = sortBy(fieldGroups, 'order');

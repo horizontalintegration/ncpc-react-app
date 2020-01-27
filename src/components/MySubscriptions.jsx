@@ -18,6 +18,10 @@ class MySubscriptions extends React.Component {
     this.mySubscriptionsService = new MySubscriptionsService(this.state.webServiceUrl);
   }
 
+  /*
+   * LIFECYCLE METHODS
+   */
+
   componentDidMount() {
     this.mySubscriptionsService.get().then(fieldGroups => {
       const sortedfieldGroups = sortBy(fieldGroups, 'order');

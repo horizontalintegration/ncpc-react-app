@@ -17,6 +17,10 @@ class TextInput extends React.Component {
     }
   }
 
+  /*
+   * LIFECYCLE METHODS
+   */
+
   render() {
     return (
       <div className="form-group">

@@ -18,6 +18,10 @@ class MyProfile extends React.Component {
     this.myProfileService = new MyProfileService(this.state.webServiceUrl);
   }
 
+  /*
+   * LIFECYCLE METHODS
+   */
+
   componentDidMount() {
     this.myProfileService.get().then(fieldGroups => {
       const sortedfieldGroups = sortBy(fieldGroups, 'order');

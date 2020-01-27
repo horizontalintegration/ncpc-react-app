@@ -15,6 +15,10 @@ class Section extends React.Component {
     }
   }
 
+  /*
+   * LIFECYCLE METHODS
+   */
+
   render() {
     let formBody;
 

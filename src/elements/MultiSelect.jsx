@@ -21,10 +21,18 @@ class MultiSelect extends React.Component {
       value: (attributes.value && Array.isArray(attributes.value)) ? attributes.value : []
     }
 
+    /*
+     * EVENT HANDLERS
+     */
+
     this.onChange = selectedOptions => {
       console.log(selectedOptions);
     }
   }
+
+  /*
+   * LIFECYCLE METHODS
+   */
 
   componentDidMount() {
     const sorted = sortBy(this.state.options, 'order');

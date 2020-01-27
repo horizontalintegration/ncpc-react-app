@@ -15,17 +15,9 @@ class Main extends React.Component {
     };
   }
 
-  componentDidUpdate(prevProps) {
-    if(!isEqual(this.props.banner, prevProps.banner)) {
-      this.setState({ banner:this.props.banner });
-    }
-
-    if(!isEqual(this.props.sections, prevProps.sections)) {
-      const sorted = sortBy(this.props.sections, 'order');
-
-      this.setState({ sections:sorted });
-    }
-  }
+  /*
+   * LIFECYCLE METHODS
+   */
 
   render() {
     const sections = this.state.sections.map(section => {
@@ -57,6 +49,18 @@ class Main extends React.Component {
         </form>
       </main>
     )
+  }
+
+  componentDidUpdate(prevProps) {
+    if(!isEqual(this.props.banner, prevProps.banner)) {
+      this.setState({ banner:this.props.banner });
+    }
+
+    if(!isEqual(this.props.sections, prevProps.sections)) {
+      const sorted = sortBy(this.props.sections, 'order');
+
+      this.setState({ sections:sorted });
+    }
   }
 }
 

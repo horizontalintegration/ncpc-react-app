@@ -11,11 +11,9 @@ class Header extends React.Component {
     };
   }
 
-  componentDidUpdate(prevProps) {
-    if(!isEqual(this.props.logo, prevProps.logo)) {
-      this.setState({ logo:this.props.logo });
-    }
-  }
+  /*
+   * LIFECYCLE METHODS
+   */
 
   render() {
     return (
@@ -28,6 +26,12 @@ class Header extends React.Component {
         </div>
       </header>
     )
+  }
+
+  componentDidUpdate(prevProps) {
+    if(!isEqual(this.props.logo, prevProps.logo)) {
+      this.setState({ logo:this.props.logo });
+    }
   }
 }
 
