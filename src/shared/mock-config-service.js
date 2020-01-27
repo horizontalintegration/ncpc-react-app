@@ -1,6 +1,8 @@
 class ConfigService {
-  constructor() {
-    this.config = {
+  constructor(webServiceUrl) {
+    this.webServiceUrl = webServiceUrl;
+
+    this.DATA = {
       banner: 'Manage Salesforce® Subscriptions',
       colors: [
         {
@@ -36,7 +38,7 @@ class ConfigService {
           headline: 'My Subscriptions',
           id: 'my-subscriptions',
           order: 2,
-          webServiceUrl: '????',
+          webServiceUrl: 'http://ncpc-postgres-horizontal.herokuapp.com/subscriptions?id=0032E00002SKfXdQAL&langBU=EN-US',
         },{
           description: '',
           headline: 'My Interests',
@@ -54,10 +56,10 @@ class ConfigService {
     };
   };
 
-  async getConfig() {
-    console.log("ConfigService.getConfig():");
+  async get() {
+    console.log('ConfigService.get(): URL: ', this.webServiceUrl);
 
-    return Promise.resolve(this.config);
+    return Promise.resolve(this.DATA);
   }
 }
 

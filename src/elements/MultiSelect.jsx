@@ -1,6 +1,8 @@
 import React from 'react';
 import Select from 'react-select'; // SEE: https://github.com/JedWatson/react-select
 
+import { sortBy } from 'lodash';
+
 class MultiSelect extends React.Component {
   constructor(props) {
     super(props);
@@ -19,9 +21,15 @@ class MultiSelect extends React.Component {
       value: (attributes.value && Array.isArray(attributes.value)) ? attributes.value : []
     }
 
-    this.onChange = selectedOption => {
-      console.log(selectedOption);
+    this.onChange = selectedOptions => {
+      console.log(selectedOptions);
     }
+  }
+
+  componentDidMount() {
+    const sorted = sortBy(this.state.options, 'order');
+
+    this.setState({ options:sorted });
   }
 
   render() {

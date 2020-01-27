@@ -10,7 +10,8 @@ class Section extends React.Component {
       anchor: props.id,
       description: props.description,
       headline: props.headline,
-      id: props.id
+      id: props.id,
+      webServiceUrl: props.webServiceUrl
     }
   }
 
@@ -19,13 +20,13 @@ class Section extends React.Component {
 
     switch(this.state.id) {
       case 'my-interests':
-        formBody = <MyInterests />
+        formBody = <MyInterests webServiceUrl={this.state.webServiceUrl} />
         break;
       case 'my-subscriptions':
-        formBody = <MySubscriptions />
+        formBody = <MySubscriptions webServiceUrl={this.state.webServiceUrl} />
         break;
       case 'my-profile':
-        formBody = <MyProfile />
+        formBody = <MyProfile webServiceUrl={this.state.webServiceUrl} />
         break;
       default:
         formBody = <div />

@@ -31,7 +31,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.configService.getConfig().then(config => {
+    this.configService.get().then(config => {
       this.setState(config);
     })
   }
