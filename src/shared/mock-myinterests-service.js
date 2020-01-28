@@ -1,7 +1,8 @@
 class MyInterestsService {
-  constructor(webServiceUrl) {
-    this.webServiceUrl = webServiceUrl;
-    
+  constructor(wsBaseUrl, wsEndpoint, businessUnit) {
+    this.businessUnit = businessUnit;
+    this.wsEndpoint = wsBaseUrl + wsEndpoint;
+
     this.DATA = [
       {
         "controlType": "formGroup",

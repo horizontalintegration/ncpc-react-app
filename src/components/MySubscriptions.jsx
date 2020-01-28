@@ -5,6 +5,7 @@ import { sortBy } from 'lodash';
 
 import MySubscriptionsService from '../shared/mock-mysubscriptions-service';
 
+import AppContext from '../AppContext';
 import Collapsible from './Collapsible';
 
 class MySubscriptions extends React.Component {
@@ -15,7 +16,7 @@ class MySubscriptions extends React.Component {
       fieldGroups: []
     };
 
-    this.mySubscriptionsService = new MySubscriptionsService(this.props.webServiceUrl);
+    this.mySubscriptionsService;
 
     /*
      * EVENT HANDLERS
@@ -33,6 +34,8 @@ class MySubscriptions extends React.Component {
    */
 
   componentDidMount() {
+    this.mySubscriptionsService = new MySubscriptionsService(this.context.wsBaseUrl, this.props.wsEndpoint, this.context.businessUnit);
+
     this.mySubscriptionsService.get().then(fieldGroups => {
       const sortedfieldGroups = sortBy(fieldGroups, 'order');
 
@@ -68,5 +71,7 @@ class MySubscriptions extends React.Component {
     )
   }
 }
+
+MySubscriptions.contextType = AppContext;
 
 export default MySubscriptions;

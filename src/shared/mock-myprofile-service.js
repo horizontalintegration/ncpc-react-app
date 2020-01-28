@@ -1,7 +1,8 @@
 class MyProfileService {
-  constructor(webServiceUrl) {
-    this.webServiceUrl = webServiceUrl;
-    
+  constructor(wsBaseUrl, wsEndpoint, businessUnit) {
+    this.businessUnit = businessUnit;
+    this.wsEndpoint = wsBaseUrl + wsEndpoint;
+
     this.DATA = [
       {
         allowMultiple: true,
@@ -99,6 +100,22 @@ class MyProfileService {
 
   async post() {
     console.log('MyProfileService.post()');
+
+    const url = 'https://ncpc-horizontal.herokuapp.com/profile';
+    const data = {
+      subscriberKey: '0032E00002SKfXdQAL',
+      method: 'postProfile',
+      bu: 'US',
+      data: {
+        field: 'FirstName',
+        value: 'Eric'
+      }
+    };
+    const reponse = {
+      id: '0032E00002SKfXdQAL',
+      success: true,
+      errors: []
+    };
   }
 }
 

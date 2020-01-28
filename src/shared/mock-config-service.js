@@ -1,9 +1,11 @@
 class ConfigService {
-  constructor(webServiceUrl) {
-    this.webServiceUrl = webServiceUrl;
+  constructor(wsBaseUrl, wsEndpoint, businessUnit) {
+    this.businessUnit = businessUnit;
+    this.wsEndpoint = wsBaseUrl + wsEndpoint;
 
     this.DATA = {
       banner: 'Manage Salesforce® Subscriptions',
+      businessUnit: 'EN-US',
       colors: [
         {
           id: '????',
@@ -38,26 +40,27 @@ class ConfigService {
           headline: 'My Subscriptions',
           id: 'my-subscriptions',
           order: 2,
-          webServiceUrl: 'http://ncpc-postgres-horizontal.herokuapp.com/subscriptions?id=0032E00002SKfXdQAL&langBU=EN-US',
+          wsEndpoint: '/subscriptions?id=0032E00002SKfXdQAL&langBU=EN-US',
         },{
           description: '',
           headline: 'My Interests',
           id: 'my-interests',
           order: 1,
-          webServiceUrl: '????',
+          wsEndpoint: '/interests'
         },{
           description: 'When you subscribe to our monthly newsletter, you\'ll receive news about products, trends and more. Update you newsletter subscription to select the newsletter that best fits you. You can change this at any time.',
           headline: 'My Profile',
           id: 'my-profile',
           order: 0,
-          webServiceUrl: '????',
+          wsEndpoint: '/profile',
         }
-      ]
+      ],
+      wsBaseUrl: '//ncpc-postgres-horizontal.herokuapp.com'
     };
   };
 
   async get() {
-    console.log('ConfigService.get(): URL: ', this.webServiceUrl);
+    console.log('ConfigService.get()');
 
     return Promise.resolve(this.DATA);
   }

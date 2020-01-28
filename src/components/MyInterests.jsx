@@ -5,6 +5,7 @@ import { sortBy } from 'lodash';
 
 import MyInterestsService from '../shared/mock-myinterests-service';
 
+import AppContext from '../AppContext';
 import { Checkbox } from '../elements';
 
 class MyInterests extends React.Component {
@@ -15,7 +16,7 @@ class MyInterests extends React.Component {
       fieldGroups: []
     };
 
-    this.myInterestsService = new MyInterestsService(this.props.webServiceUrl);
+    this.myInterestsService;
 
     /*
      * EVENT HANDLERS
@@ -33,6 +34,8 @@ class MyInterests extends React.Component {
    */
 
   componentDidMount() {
+    this.myInterestsService = new MyInterestsService(this.context.wsBaseUrl, this.props.wsEndpoint, this.context.businessUnit);
+
     this.myInterestsService.get().then(fieldGroups => {
       const sortedfieldGroups = sortBy(fieldGroups, 'order');
 
@@ -68,5 +71,7 @@ class MyInterests extends React.Component {
     )
   }
 }
+
+MyInterests.contextType = AppContext;
 
 export default MyInterests;

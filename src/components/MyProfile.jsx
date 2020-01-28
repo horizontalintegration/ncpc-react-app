@@ -5,6 +5,7 @@ import { sortBy } from 'lodash';
 
 import MyProfileService from '../shared/mock-myprofile-service';
 
+import AppContext from '../AppContext';
 import { EmailInput, MultiSelect, TextInput } from '../elements';
 
 class MyProfile extends React.Component {
@@ -14,8 +15,10 @@ class MyProfile extends React.Component {
     this.state = {
       fieldGroups: []
     };
+    
+    this.myProfileService;
 
-    this.myProfileService = new MyProfileService(this.props.webServiceUrl);
+    this.timer;
 
     /*
      * EVENT HANDLERS
@@ -25,6 +28,13 @@ class MyProfile extends React.Component {
       const $this = $(event.target);
       
       console.log('onChange()', $this);
+
+      clearTimeout(this.timer);
+      this.timer = setTimeout(this.onTimeout, 500);
+    }
+
+    this.onTimeout = () => {
+      this.myProfileService.post();
     }
   }
 
@@ -33,22 +43,25 @@ class MyProfile extends React.Component {
    */
 
   componentDidMount() {
+    this.myProfileService = new MyProfileService(this.context.wsBaseUrl, this.props.wsEndpoint, this.context.businessUnit);
+
     this.myProfileService.get().then(fieldGroups => {
       const sortedfieldGroups = sortBy(fieldGroups, 'order');
 
       this.setState({ fieldGroups:sortedfieldGroups });
-    })
+    });
   }
 
   render() {
+    
     const fieldGroups = this.state.fieldGroups.map(fieldGroup => {
-      return(
+      return (
         <div className="col-lg-6" key={fieldGroup.id}>
           {this.renderControlType(fieldGroup)}
         </div>
       )
     });
-
+    
     return (
       <form name={this.props.id} onChange={this.onChange}>
         <div className="row">
@@ -71,5 +84,7 @@ class MyProfile extends React.Component {
     }
   }
 }
+
+MyProfile.contextType = AppContext;
 
 export default MyProfile;

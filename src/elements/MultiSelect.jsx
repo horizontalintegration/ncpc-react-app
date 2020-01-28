@@ -1,7 +1,9 @@
 import React from 'react';
-import Select from 'react-select'; // SEE: https://github.com/JedWatson/react-select
+import ReactDOM from 'react-dom';
 
+import $ from 'jquery';
 import { sortBy } from 'lodash';
+import Select from 'react-select'; // SEE: https://github.com/JedWatson/react-select
 
 class MultiSelect extends React.Component {
   constructor(props) {
@@ -16,8 +18,9 @@ class MultiSelect extends React.Component {
      * EVENT HANDLERS
      */
 
-    this.onChange = selectedOptions => {
-      console.log(selectedOptions);
+    this.onChange = (selections, event) => {
+      const $this = $(ReactDOM.findDOMNode(this));
+      const $form = $this.closest('form');
     }
   }
 

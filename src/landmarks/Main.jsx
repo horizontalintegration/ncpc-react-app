@@ -17,7 +17,7 @@ class Main extends React.Component {
   render() {
     const sections = this.props.sections.map(section => {
       return (
-        <Section description={section.description} headline={section.headline} id={section.id} key={section.id} webServiceUrl={section.webServiceUrl} />
+        <Section description={section.description} headline={section.headline} id={section.id} key={section.id} wsEndpoint={section.wsEndpoint} />
       )
     });
 

@@ -8,6 +8,7 @@ import { sortBy } from 'lodash';
 
 import ConfigService from './shared/mock-config-service';
 
+import AppContext from './AppContext';
 import { Footer, Header, Main } from './landmarks';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -21,12 +22,14 @@ class App extends React.Component {
 
     this.state = {
       banner: '',
+      businessUnit: 'EN-US',
       colors: [],
       images: {
         banner: {},
         logo: {}
       },
-      sections: []
+      sections: [],
+      wsBaseUrl: ''
     };
 
     this.configService = new ConfigService();
@@ -41,11 +44,18 @@ class App extends React.Component {
   }
 
   render() {
+    const sharedContext = {
+      businessUnit: this.state.businessUnit, 
+      wsBaseUrl: this.state.wsBaseUrl
+    };
+
     return (
       <React.Fragment>
-        <Header logo={this.state.images.logo} />
-        <Main banner={this.state.banner} sections={this.state.sections} />
-        <Footer />
+        <AppContext.Provider value={sharedContext}>
+          <Header logo={this.state.images.logo} />
+          <Main banner={this.state.banner} sections={this.state.sections} wsBaseUrl={this.state.wsBaseUrl} />
+          <Footer />
+        </AppContext.Provider>
       </React.Fragment>
     )
   }
