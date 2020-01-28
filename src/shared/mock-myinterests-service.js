@@ -42,9 +42,13 @@ class MyInterestsService {
   };
 
   async get() {
-    console.log('MyInterestsService.get(): URL:', this.webServiceUrl);
+    console.log('MyInterestsService.get()');
 
     return Promise.resolve(this.DATA);
+  }
+
+  async post() {
+    console.log('MyInterestsService.post()');
   }
 }
 

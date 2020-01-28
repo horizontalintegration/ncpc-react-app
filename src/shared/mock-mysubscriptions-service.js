@@ -133,9 +133,13 @@ class MySubscriptionsService {
   };
 
   async get() {
-    console.log('MySubscriptionsService.get(): URL:', this.webServiceUrl);
+    console.log('MySubscriptionsService.get()');
 
     return Promise.resolve(this.DATA);
+  }
+
+  async post() {
+    console.log('MySubscriptionsService.post()');
   }
 }
 

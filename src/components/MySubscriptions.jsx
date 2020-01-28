@@ -1,5 +1,6 @@
 import React from 'react';
 
+import $ from 'jquery';
 import { sortBy } from 'lodash';
 
 import MySubscriptionsService from '../shared/mock-mysubscriptions-service';
@@ -11,11 +12,20 @@ class MySubscriptions extends React.Component {
     super(props);
 
     this.state = {
-      fieldGroups: [],
-      webServiceUrl: props.webServiceUrl
+      fieldGroups: []
     };
 
-    this.mySubscriptionsService = new MySubscriptionsService(this.state.webServiceUrl);
+    this.mySubscriptionsService = new MySubscriptionsService(this.props.webServiceUrl);
+
+    /*
+     * EVENT HANDLERS
+     */
+
+    this.onChange = event => {
+      const $this = $(event.target);
+      
+      console.log('onChange()', $this);
+    }
   }
 
   /*
@@ -46,15 +56,15 @@ class MySubscriptions extends React.Component {
 
     const fieldGroups = this.state.fieldGroups.map(fieldGroup => {
       return (
-        <Collapsible attributes={fieldGroup} key={fieldGroup.id} />
+        <Collapsible id={fieldGroup.id} isActive={fieldGroup.isActive} key={fieldGroup.id} label={fieldGroup.label} subscriptions={fieldGroup.subscriptions} />
       )
     });
 
     return (
-      <div>
+      <form name={this.state.formName} onChange={this.onChange}>
         {fieldGroups}
         <button className="btn btn-large btn-secondary float-right">Unsubscribe All</button>
-      </div>
+      </form>
     )
   }
 }

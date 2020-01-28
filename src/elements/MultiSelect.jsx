@@ -7,18 +7,9 @@ class MultiSelect extends React.Component {
   constructor(props) {
     super(props);
 
-    const { attributes } = props;
-
     this.state = {
-      allowMultiple: attributes.allowMultiple,
-      disabled: attributes.disabled,
-      helpId: attributes.id + '_help',
-      helpText: null,
-      id: attributes.id,
-      label: attributes.label,
-      options: attributes.options,
-      placeholder: attributes.placeholder,
-      value: (attributes.value && Array.isArray(attributes.value)) ? attributes.value : []
+      options: props.options,
+      value: props.value
     }
 
     /*
@@ -35,17 +26,18 @@ class MultiSelect extends React.Component {
    */
 
   componentDidMount() {
-    const sorted = sortBy(this.state.options, 'order');
+    const sortedOptions = sortBy(this.props.options, 'order');
+    const sortedValue = sortBy(this.props.value, 'order');
 
-    this.setState({ options:sorted });
+    this.setState({ options:sortedOptions, value:sortedValue });
   }
 
   render() {
     return (
       <div className="form-group">
-        <label htmlFor={this.state.id}>{this.state.label}</label>
-        <Select className="form-multiselect" closeMenuOnSelect={false} defaultValue={this.state.value} isMulti={true} isSearchable={true} onChange={this.onChange} options={this.state.options} placeholder={this.state.placeholder} />
-        {this.state.helpText ? <small className="form-text text-muted" id={this.state.helpId}>{this.state.helpText}</small> : ''}
+        <label htmlFor={this.props.id}>{this.props.label}</label>
+        <Select className="form-multiselect" closeMenuOnSelect={false} defaultValue={this.state.value} isMulti={this.props.allowMultiple} isSearchable={true} onChange={this.onChange} options={this.state.options} placeholder={this.props.placeholder} />
+        {this.props.helpText ? <small className="form-text text-muted" id={this.props.id + '_help'}>{this.props.helpText}</small> : ''}
       </div>
     )
   }

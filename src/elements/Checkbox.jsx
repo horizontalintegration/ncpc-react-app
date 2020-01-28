@@ -4,17 +4,8 @@ class Checkbox extends React.Component {
   constructor(props) {
     super(props);
 
-    const { attributes } = props;
-
     this.state = {
-      checked: attributes.checked,
-      description: attributes.description,
-      disabled: attributes.disabled,
-      helpId: attributes.id + '_help',
-      helpText: null,
-      id: attributes.id,
-      imageUrl: attributes.imageUrl,
-      label: attributes.label
+      checked: props.checked
     }
 
     /*
@@ -22,9 +13,7 @@ class Checkbox extends React.Component {
      */
 
     this.handleClick = event => {
-      this.setState(state => ({
-        checked: !state.checked
-      }))
+      this.setState({ checked:!this.state.checked });
     }
   }
 
@@ -35,14 +24,14 @@ class Checkbox extends React.Component {
   render() {
     return (
       <div className={"form-check" + (this.state.checked ? ' isActive' : '')}>
-        <input className="form-check-input" id={this.state.id} type="checkbox" defaultChecked={this.state.checked} onClick={this.handleClick} />
-        <label className="form-check-label" htmlFor={this.state.id}>
+        <input className="form-check-input" id={this.props.id} type="checkbox" defaultChecked={this.props.checked} onClick={this.handleClick} />
+        <label className="form-check-label" htmlFor={this.props.id}>
           <div className="card mix_checkbox">
-            <img src={this.state.imageUrl} className="card-img-top" />
+            <img src={this.props.imageUrl} className="card-img-top" />
             <div className="card-body">
               <div className="form-check-toggle" />
-              {this.state.label}
-              <p className="form-check-description">{this.state.description}</p>
+              {this.props.label}
+              <p className="form-check-description">{this.props.description}</p>
             </div>
           </div>
         </label>

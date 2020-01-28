@@ -4,14 +4,8 @@ class Switch extends React.Component {
   constructor(props) {
     super(props);
 
-    const { attributes } = props;
-
     this.state = {
-      channel: attributes.channel,
-      checked: attributes.checked,
-      description: attributes.description,
-      id: attributes.id,
-      label: attributes.label
+      checked: props.checked
     }
 
     /*
@@ -19,9 +13,7 @@ class Switch extends React.Component {
      */
 
     this.handleClick = event => {
-      this.setState(state => ({
-        checked: !state.checked
-      }))
+      this.setState({ checked:!this.state.checked })
     }
   }
 
@@ -32,13 +24,13 @@ class Switch extends React.Component {
   render() {
     return (
       <div className={"form-switch" + (this.state.checked ? ' isActive' : '')}>
-        <input className="form-switch-input" id={this.state.id} type="checkbox" defaultChecked={this.state.checked} onClick={this.handleClick} />
-        <label className="form-switch-label" htmlFor={this.state.id}>
+        <input className="form-switch-input" id={this.props.id} type="checkbox" defaultChecked={this.props.checked} onClick={this.handleClick} />
+        <label className="form-switch-label" htmlFor={this.props.id}>
           <div className="form-switch-text">
-            {this.state.label}
-            <p className="form-switch-description">{this.state.description}</p>
+            {this.props.label}
+            <p className="form-switch-description">{this.props.description}</p>
           </div>
-          <div className="form-switch-badge badge badge-secondary">{this.state.channel}</div>
+          <div className="form-switch-badge badge badge-secondary">{this.props.channel}</div>
           <div className="form-switch-toggle" />
         </label>
       </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import $ from 'jquery';
 import { sortBy } from 'lodash';
 
 import MyProfileService from '../shared/mock-myprofile-service';
@@ -11,11 +12,20 @@ class MyProfile extends React.Component {
     super(props);
 
     this.state = {
-      fieldGroups: [],
-      webServiceUrl: props.webServiceUrl
+      fieldGroups: []
     };
 
-    this.myProfileService = new MyProfileService(this.state.webServiceUrl);
+    this.myProfileService = new MyProfileService(this.props.webServiceUrl);
+
+    /*
+     * EVENT HANDLERS
+     */
+
+    this.onChange = event => {
+      const $this = $(event.target);
+      
+      console.log('onChange()', $this);
+    }
   }
 
   /*
@@ -40,22 +50,22 @@ class MyProfile extends React.Component {
     });
 
     return (
-      <div>
+      <form name={this.props.id} onChange={this.onChange}>
         <div className="row">
           {fieldGroups}
         </div>
-      </div>
+      </form>
     )
   }
 
   renderControlType(attributes) {
     switch(attributes.controlType) {
       case 'EmailInput':
-        return <EmailInput attributes={attributes} />;
+        return <EmailInput defaultValue={attributes.value} disabled={attributes.disabled} id={attributes.id} label={attributes.label} placeholder={attributes.placeholder} />;
       case 'MultiSelect':
-        return <MultiSelect attributes={attributes} />;
+        return <MultiSelect allowMultiple={attributes.allowMultiple} disabled={attributes.disabled} id={attributes.id} label={attributes.label} options={attributes.options} placeholder={attributes.placeholder} value={attributes.value} />;
       case 'TextInput':
-        return <TextInput attributes={attributes}  />;
+        return <TextInput defaultValue={attributes.value} disabled={attributes.disabled} id={attributes.id} label={attributes.label} placeholder={attributes.placeholder} />;
       default:
         return null;
     }

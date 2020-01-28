@@ -92,9 +92,13 @@ class MyProfileService {
   };
 
   async get() {
-    console.log('MyProfileService.get(): URL:', this.webServiceUrl);
+    console.log('MyProfileService.get()');
 
     return Promise.resolve(this.DATA);
+  }
+
+  async post() {
+    console.log('MyProfileService.post()');
   }
 }
 

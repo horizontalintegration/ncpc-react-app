@@ -4,6 +4,8 @@ import cssVars from 'css-vars-ponyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import { sortBy } from 'lodash';
+
 import ConfigService from './shared/mock-config-service';
 
 import { Footer, Header, Main } from './landmarks';
@@ -31,8 +33,10 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.configService.get().then(config => {
-      this.setState(config);
+    this.configService.get().then(data => {
+      data.sections = sortBy(data.sections, 'order');
+
+      this.setState(data);
     })
   }
 

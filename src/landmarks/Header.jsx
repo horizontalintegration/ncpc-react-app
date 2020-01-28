@@ -1,14 +1,23 @@
 import React from 'react';
 
+import $ from 'jquery';
 import { isEqual } from 'lodash';
 
 class Header extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      logo: props.logo
-    };
+    /*
+     * EVENT HANDLERS
+     */
+
+    this.onClick = event => {
+      event.preventDefault();
+  
+      $('html, body').animate({
+        scrollTop: 0
+      }, 'fast');
+    }
   }
 
   /*
@@ -19,19 +28,13 @@ class Header extends React.Component {
     return (
       <header>
         <div className="container">
-          <img className="header-logo" src={this.state.logo.url} alt={this.state.logo.label} />
+          <a href="#top" onClick={this.onClick}><img className="header-logo" src={this.props.logo.url} alt={this.props.logo.label} /></a>
           <ul className="header-locale list-inline">
             <li className="list-inline-item">English</li>
           </ul>
         </div>
       </header>
     )
-  }
-
-  componentDidUpdate(prevProps) {
-    if(!isEqual(this.props.logo, prevProps.logo)) {
-      this.setState({ logo:this.props.logo });
-    }
   }
 }
 

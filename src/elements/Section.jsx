@@ -5,14 +5,6 @@ import { MyInterests, MySubscriptions, MyProfile } from '../components';
 class Section extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      anchor: props.id,
-      description: props.description,
-      headline: props.headline,
-      id: props.id,
-      webServiceUrl: props.webServiceUrl
-    }
   }
 
   /*
@@ -22,15 +14,15 @@ class Section extends React.Component {
   render() {
     let formBody;
 
-    switch(this.state.id) {
+    switch(this.props.id) {
       case 'my-interests':
-        formBody = <MyInterests webServiceUrl={this.state.webServiceUrl} />
+        formBody = <MyInterests id={this.props.id} webServiceUrl={this.props.webServiceUrl} />
         break;
       case 'my-subscriptions':
-        formBody = <MySubscriptions webServiceUrl={this.state.webServiceUrl} />
+        formBody = <MySubscriptions id={this.props.id} webServiceUrl={this.props.webServiceUrl} />
         break;
       case 'my-profile':
-        formBody = <MyProfile webServiceUrl={this.state.webServiceUrl} />
+        formBody = <MyProfile id={this.props.id} webServiceUrl={this.props.webServiceUrl} />
         break;
       default:
         formBody = <div />
@@ -39,9 +31,9 @@ class Section extends React.Component {
 
     return (
       <section>
-        <a name={this.state.anchor} />
-        <h2>{this.state.headline}</h2>
-        {this.state.description ? <p className="section-description">{this.state.description}</p> : ''}
+        <a name={this.props.id} />
+        <h2>{this.props.headline}</h2>
+        {this.props.description ? <p className="section-description">{this.props.description}</p> : ''}
         {formBody}
       </section>
     )

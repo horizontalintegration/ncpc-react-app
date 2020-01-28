@@ -1,5 +1,6 @@
 import React from 'react';
 
+import $ from 'jquery';
 import { sortBy } from 'lodash';
 
 import MyInterestsService from '../shared/mock-myinterests-service';
@@ -11,11 +12,20 @@ class MyInterests extends React.Component {
     super(props);
 
     this.state = {
-      fieldGroups: [],
-      webServiceUrl: props.webServiceUrl
+      fieldGroups: []
     };
 
-    this.myInterestsService = new MyInterestsService(this.state.webServiceUrl);
+    this.myInterestsService = new MyInterestsService(this.props.webServiceUrl);
+
+    /*
+     * EVENT HANDLERS
+     */
+
+    this.onChange = event => {
+      const $this = $(event.target);
+      
+      console.log('onChange()', $this);
+    }
   }
 
   /*
@@ -42,7 +52,7 @@ class MyInterests extends React.Component {
         fieldGroup.interests.map(interest => {
           return (
             <div className="d-flex align-items-stretch pb-15px pl-15px pr-15px" key={interest.id}>
-              <Checkbox attributes={interest} key={interest.id} />
+              <Checkbox checked={interest.checked} description={interest.description} disabled={interest.disabled} id={interest.id} imageUrl={interest.imageUrl} key={interest.id} label={interest.label} />
             </div>
           )
         })
@@ -50,11 +60,11 @@ class MyInterests extends React.Component {
     });
 
     return (
-      <div>
+      <form name={this.state.formName} onChange={this.onChange}>
         <div className="mt-lg-5 row row-cols-1 row-cols-lg-3">
           {fieldGroups}
         </div>
-      </div>
+      </form>
     )
   }
 }
