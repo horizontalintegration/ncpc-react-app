@@ -29,6 +29,10 @@ class MyProfile extends React.Component {
         this.wsEndpoint.post(props.id, state.value);
       }
     }
+
+    this.onChangeMultiSelect = (selections => {
+      console.log('onChangeMultiSelect()', selections);
+    });
   }
 
   /*
@@ -68,7 +72,7 @@ class MyProfile extends React.Component {
       case 'EmailInput':
         return <EmailInput callback={this.onBlurInput} defaultValue={attributes.value} disabled={attributes.disabled} id={attributes.id} label={attributes.label} placeholder={attributes.placeholder} />;
       case 'MultiSelect':
-        return <MultiSelect allowMultiple={attributes.allowMultiple} disabled={attributes.disabled} id={attributes.id} label={attributes.label} options={attributes.options} placeholder={attributes.placeholder} value={attributes.value} />;
+        return <MultiSelect callback={this.onChangeMultiSelect} allowMultiple={attributes.allowMultiple} disabled={attributes.disabled} id={attributes.id} label={attributes.label} options={attributes.options} placeholder={attributes.placeholder} value={attributes.value} />;
       case 'TextInput':
         return <TextInput callback={this.onBlurInput} defaultValue={attributes.value} disabled={attributes.disabled} id={attributes.id} label={attributes.label} placeholder={attributes.placeholder} />;
       default:

@@ -19,8 +19,7 @@ class MultiSelect extends React.Component {
      */
 
     this.onChange = (selections, event) => {
-      const $this = $(ReactDOM.findDOMNode(this));
-      const $form = $this.closest('form');
+      this.props.callback(selections);
     }
   }
 
