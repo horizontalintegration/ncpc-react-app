@@ -16,6 +16,7 @@
     "components": "^0.1.0",
     "css-vars-ponyfill": "^2.1.2",
     "jquery": "^3.4.1",
+    "local-cors-proxy": "^1.0.2",
     "lodash": "^4.17.15",
     "node-sass": "^4.13.0",
     "react": "^16.12.0",

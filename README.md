@@ -49,13 +49,19 @@ Also, be sure to have `git` available in your PATH, `npm` might need it.
 
     $ git clone https://github.com/horizontalintegration/ncpc-react-app.git
     $ cd PROJECT
-    $ npm install
 
 ### Install Node Dependencies
 
     $ npm install
 
-## Start and Watch
+### Start Web Service Proxy
+
+When running locally, a proxy must be set up to avoid cross-domain issues when requesting data from web service endpoints.
+(SEE: [https://www.npmjs.com/package/local-cors-proxy](https://www.npmjs.com/package/local-cors-proxy))
+
+    $ lcp --proxyUrl http://ncpc-postgres-horizontal.herokuapp.com
+
+### Start and Watch
 
     $ npm start
 

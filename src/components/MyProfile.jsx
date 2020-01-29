@@ -16,7 +16,7 @@ class MyProfile extends React.Component {
       fieldGroups: []
     };
     
-    this.myProfileService;
+    this.wsEndpoint;
 
     this.timer;
 
@@ -30,11 +30,16 @@ class MyProfile extends React.Component {
       console.log('onChange()', $this);
 
       clearTimeout(this.timer);
-      this.timer = setTimeout(this.onTimeout, 500);
+      this.timer = setTimeout(this.onTimeout, 1000, $this);
     }
 
-    this.onTimeout = () => {
-      this.myProfileService.post();
+    this.onTimeout = $elem => {
+      const fieldName = $elem.attr('name');
+      const fieldValue = $elem.val();
+
+      this.wsEndpoint.post(fieldName, fieldValue);
+
+      console.log('onTimeout()', $elem);
     }
   }
 
@@ -43,9 +48,9 @@ class MyProfile extends React.Component {
    */
 
   componentDidMount() {
-    this.myProfileService = new MyProfileService(this.context.wsBaseUrl, this.props.wsEndpoint, this.context.businessUnit);
+    this.wsEndpoint = new MyProfileService(this.context.businessUnit, this.context.id, this.context.wsBaseUrl, this.props.wsEndpoint);
 
-    this.myProfileService.get().then(fieldGroups => {
+    this.wsEndpoint.get().then(fieldGroups => {
       const sortedfieldGroups = sortBy(fieldGroups, 'order');
 
       this.setState({ fieldGroups:sortedfieldGroups });
@@ -53,7 +58,6 @@ class MyProfile extends React.Component {
   }
 
   render() {
-    
     const fieldGroups = this.state.fieldGroups.map(fieldGroup => {
       return (
         <div className="col-lg-6" key={fieldGroup.id}>

@@ -55,7 +55,6 @@ class ConfigService {
           wsEndpoint: '/profile',
         }
       ],
-      wsBaseUrl: 'http://ncpc-postgres-horizontal.herokuapp.com',
       wsBaseUrl: 'http://localhost:8010/proxy'
     };
   };

@@ -34,7 +34,7 @@ class MyInterests extends React.Component {
    */
 
   componentDidMount() {
-    this.myInterestsService = new MyInterestsService(this.context.wsBaseUrl, this.props.wsEndpoint, this.context.businessUnit);
+    this.myInterestsService = new MyInterestsService(this.context.businessUnit, this.context.id, this.context.wsBaseUrl, this.props.wsEndpoint);
 
     this.myInterestsService.get().then(fieldGroups => {
       const sortedfieldGroups = sortBy(fieldGroups, 'order');

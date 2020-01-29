@@ -24,7 +24,7 @@ class Checkbox extends React.Component {
   render() {
     return (
       <div className={"form-check" + (this.state.checked ? ' isActive' : '')}>
-        <input className="form-check-input" id={this.props.id} type="checkbox" defaultChecked={this.props.checked} onClick={this.handleClick} />
+        <input className="form-check-input" id={this.props.id} type="checkbox" defaultChecked={this.props.checked} name={this.props.id} onClick={this.handleClick} />
         <label className="form-check-label" htmlFor={this.props.id}>
           <div className="card mix_checkbox">
             <img src={this.props.imageUrl} className="card-img-top" />

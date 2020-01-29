@@ -8,6 +8,8 @@ import MySubscriptionsService from '../shared/mock-mysubscriptions-service';
 import AppContext from '../AppContext';
 import Collapsible from './Collapsible';
 
+import { Switch } from '../elements';
+
 class MySubscriptions extends React.Component {
   constructor(props) {
     super(props);
@@ -16,16 +18,46 @@ class MySubscriptions extends React.Component {
       fieldGroups: []
     };
 
-    this.mySubscriptionsService;
+    this.wsEndpoint;
+
+    // this.timer;
 
     /*
      * EVENT HANDLERS
      */
 
-    this.onChange = event => {
-      const $this = $(event.target);
+    // this.onChange = event => {
+    //   const $this = $(event.target);
       
-      console.log('onChange()', $this);
+    //   console.log('onChange()', event, $this);
+
+    //   clearTimeout(this.timer);
+    //   this.timer = setTimeout(this.onTimeout, 1000, $this);
+    // }
+
+    // this.onTimeout = $elem => {
+    //   const fieldName = $elem.attr('name');
+    //   const fieldValue = $elem.prop('checked');
+
+    //   console.log('onTimeout()', $elem);
+
+    //   this.wsEndpoint.post(fieldName, fieldValue);
+    // }
+
+    this.onClickUnsubscribeAll = event => {
+      event.preventDefault();
+
+      const $this = $(event.target);
+
+      console.log('onUnsubscribeAll()');
+
+      $this.attr('disabled', true);
+
+      this.wsEndpoint.unsubscribeAll()
+        .then(response => {
+          $this.attr('disabled', false);
+        }
+      );
     }
   }
 
@@ -34,10 +66,10 @@ class MySubscriptions extends React.Component {
    */
 
   componentDidMount() {
-    this.mySubscriptionsService = new MySubscriptionsService(this.context.wsBaseUrl, this.props.wsEndpoint, this.context.businessUnit);
+    this.wsEndpoint = new MySubscriptionsService(this.context.businessUnit, this.context.id, this.context.wsBaseUrl, this.props.wsEndpoint);
 
-    this.mySubscriptionsService.get().then(fieldGroups => {
-      const sortedfieldGroups = sortBy(fieldGroups, 'order');
+    this.wsEndpoint.get().then(fieldGroups => {
+      const sortedfieldGroups = sortBy(fieldGroups, 'catorder');
 
       sortedfieldGroups.forEach(fieldGroup => {
         const sortedSubscriptions = sortBy(fieldGroup.subscriptions, 'order');
@@ -56,20 +88,28 @@ class MySubscriptions extends React.Component {
   }
 
   render() {
-
     const fieldGroups = this.state.fieldGroups.map(fieldGroup => {
       return (
-        <Collapsible id={fieldGroup.id} isActive={fieldGroup.isActive} key={fieldGroup.id} label={fieldGroup.label} subscriptions={fieldGroup.subscriptions} />
+        <Collapsible id={fieldGroup.catid} isActive={true} key={fieldGroup.catid} label={fieldGroup.catlabel} subscriptions={fieldGroup.subscriptions} />
       )
     });
 
     return (
-      <form name={this.state.formName} onChange={this.onChange}>
+      <form name={this.state.formName}>
         {fieldGroups}
-        <button className="btn btn-large btn-secondary float-right">Unsubscribe All</button>
+        <button className="btn btn-large btn-secondary float-right" onClick={this.onClickUnsubscribeAll}>Unsubscribe All</button>
       </form>
     )
   }
+
+  renderSwitches(subscriptions) {
+    subscriptions.map(subscription => {
+      return(
+        <Switch channel={subscription.channel} checked={subscription.checked} description={subscription.description} id={subscription.id} key={subscription.id} label={subscription.label} />
+      )
+    })
+  }
+
 }
 
 MySubscriptions.contextType = AppContext;

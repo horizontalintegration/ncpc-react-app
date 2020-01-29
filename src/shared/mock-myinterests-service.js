@@ -1,6 +1,7 @@
 class MyInterestsService {
-  constructor(wsBaseUrl, wsEndpoint, businessUnit) {
+  constructor(businessUnit, id, wsBaseUrl, wsEndpoint) {
     this.businessUnit = businessUnit;
+    this.id = id;
     this.wsEndpoint = wsBaseUrl + wsEndpoint;
 
     this.DATA = [

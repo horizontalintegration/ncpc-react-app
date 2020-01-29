@@ -1,15 +1,15 @@
 class MySubscriptionsService {
-  constructor(wsBaseUrl, wsEndpoint, businessUnit) {
+  constructor(businessUnit, id, wsBaseUrl, wsEndpoint) {
     this.businessUnit = businessUnit;
+    this.id = id;
     this.wsEndpoint = wsBaseUrl + wsEndpoint;
 
     this.DATA = [
       {
-        controlType: 'formGroup',
-        id: 'a002E00000Zkwaq',
-        isActive: false,
-        label: 'Sales Cloud',
-        order: 1,
+        catcontrolType: 'formGroup',
+        catid: 'a002E00000Zkwaq',
+        catlabel: 'Sales Cloud',
+        catorder: 1,
         subscriptions: [
           {
             "campaigns": [],
@@ -34,11 +34,10 @@ class MySubscriptionsService {
           }
         ]
       },{
-        controlType: 'formGroup',
-        id: 'a002E00000Zkwag',
-        isActive: true,
-        label: 'General',
-        order: 0,
+        catcontrolType: 'formGroup',
+        catid: 'a002E00000Zkwag',
+        catlabel: 'General',
+        catorder: 0,
         subscriptions: [
           {
             "campaigns": [
@@ -133,14 +132,53 @@ class MySubscriptionsService {
     ];
   };
 
+  /*
+   * GET
+   * URI: http://ncpc-postgres-horizontal.herokuapp.com/subscriptions?id={{USER_ID}}&langBU={{BUSINESS_UNIT}}
+   */
   async get() {
     console.log('MySubscriptionsService.get()');
 
     return Promise.resolve(this.DATA);
   }
 
+  /*
+   * POST
+   * URI: https://ncpc-horizontal.herokuapp.com/subscriptions
+   * PAYLOAD:
+   * {
+   *   "bu": "{{BUSINESS_UNIT}}",
+   *   "method": "postSub",
+   *   "subscriberKey": "{{USER_ID}}",
+   *   "data": {
+   *     "field":"{{FIELD_NAME}}",
+   *     "value":"{{FIELD_VALUE}}"
+   *   }
+   * }
+   */
   async post() {
     console.log('MySubscriptionsService.post()');
+
+    return Promise.resolve();
+  }
+
+  /*
+   * POST
+   * URI: https://ncpc-horizontal.herokuapp.com/subscriptions
+   * PAYLOAD:
+   * {
+   *   "bu": "{{BUSINESS_UNIT}}",
+   *   "method": "postUnsubAll",
+   *   "subscriberKey": "{{USER_ID}}",
+   *   "data": {
+   *     "mappedFields":"{{ }}"
+   *   }
+   * }
+   */
+  async unsubscribeAll() {
+    console.log('MySubscriptionsService.post()');
+
+    return Promise.resolve();
   }
 }
 

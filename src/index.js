@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 
 import { sortBy } from 'lodash';
 
-import ConfigService from './shared/mock-config-service';
+import ConfigService from './shared/config-service';
 
 import AppContext from './AppContext';
 import { Footer, Header, Main } from './landmarks';
@@ -33,6 +33,8 @@ class App extends React.Component {
     };
 
     this.configService = new ConfigService();
+
+    this.urlParams = new URLSearchParams(window.location.search);
   }
 
   componentDidMount() {
@@ -45,7 +47,8 @@ class App extends React.Component {
 
   render() {
     const sharedContext = {
-      businessUnit: this.state.businessUnit, 
+      businessUnit: (this.urlParams.has('bu') ? this.urlParams.get('bu') : 'EN-US'),
+      id: (this.urlParams.has('id') ? this.urlParams.get('id') : ''),
       wsBaseUrl: this.state.wsBaseUrl
     };
 

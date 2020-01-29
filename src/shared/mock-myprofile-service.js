@@ -1,6 +1,7 @@
 class MyProfileService {
-  constructor(wsBaseUrl, wsEndpoint, businessUnit) {
+  constructor(businessUnit, id, wsBaseUrl, wsEndpoint) {
     this.businessUnit = businessUnit;
+    this.id = id;
     this.wsEndpoint = wsBaseUrl + wsEndpoint;
 
     this.DATA = [
@@ -92,30 +93,24 @@ class MyProfileService {
     ];
   };
 
+  /*
+   * GET
+   * URI: https://ncpc-horizontal.herokuapp.com/profile?id={{USER_ID}}&bu={{BUSINESS_UNIT}}
+   */
   async get() {
     console.log('MyProfileService.get()');
 
     return Promise.resolve(this.DATA);
   }
 
+  /*
+   * POST
+   * URI: https://ncpc-horizontal.herokuapp.com/profile
+   * PAYLOAD:
+   * {"subscriberKey":"{{USER_ID}}","method":"postProfile","bu":"{{BUSINESS_UNIT}}","data":{"field":"{{FIELD_NAME}}","value":"{{FIELD_VALUE}}"}}
+   */
   async post() {
     console.log('MyProfileService.post()');
-
-    const url = 'https://ncpc-horizontal.herokuapp.com/profile';
-    const data = {
-      subscriberKey: '0032E00002SKfXdQAL',
-      method: 'postProfile',
-      bu: 'US',
-      data: {
-        field: 'FirstName',
-        value: 'Eric'
-      }
-    };
-    const reponse = {
-      id: '0032E00002SKfXdQAL',
-      success: true,
-      errors: []
-    };
   }
 }
 
