@@ -23,23 +23,25 @@ class Main extends React.Component {
 
     return (
       <main>
-        <div className="container-fluid">
-          <div className="hero">
-            <div className="container">
-              <h1 className="hero-heading">{this.props.banner}</h1>
+        <form>
+          <div className="container-fluid">
+            <div className="hero">
+              <div className="container">
+                <h1 className="hero-heading">{this.props.banner}</h1>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-3">
-              <Sidebar sections={this.props.sections} />
-            </div>
-            <div className="col-lg-9">
-              {sections}
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-3">
+                <Sidebar sections={this.props.sections} />
+              </div>
+              <div className="col-lg-9">
+                {sections}
+              </div>
             </div>
           </div>
-        </div>
+        </form>
       </main>
     )
   }

@@ -61,11 +61,11 @@ class MyInterests extends React.Component {
     });
 
     return (
-      <form name={this.state.formName}>
+      <div>
         <div className="mt-lg-5 row row-cols-1 row-cols-lg-3">
           {fieldGroups}
         </div>
-      </form>
+      </div>
     )
   }
 }

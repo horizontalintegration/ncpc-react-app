@@ -79,10 +79,10 @@ class MySubscriptions extends React.Component {
     });
 
     return (
-      <form name={this.state.formName}>
+      <div>
         {fieldGroups}
         <button className="btn btn-large btn-secondary float-right" onClick={this.onClickUnsubscribeAll}>Unsubscribe All</button>
-      </form>
+      </div>
     )
   }
 }

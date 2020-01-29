@@ -59,11 +59,11 @@ class MyProfile extends React.Component {
     });
     
     return (
-      <form name={this.props.id}>
+      <div>
         <div className="row">
           {fieldGroups}
         </div>
-      </form>
+      </div>
     )
   }
 
