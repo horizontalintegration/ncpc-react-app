@@ -9,7 +9,7 @@ class MySubscriptionsService {
 
   /*
    * GET
-   * URI: http://ncpc-postgres-horizontal.herokuapp.com/subscriptions?id={{USER_ID}}&langBU={{BUSINESS_UNIT}}
+   * URI: https://ncpc-horizontal.herokuapp.com/subscriptions?id={{USER_ID}}&langBU={{BUSINESS_UNIT}}
    */
   async get() {
     console.log('MySubscriptionsService.get()');

@@ -59,7 +59,7 @@ Also, be sure to have `git` available in your PATH, `npm` might need it.
 When running locally, a proxy must be set up to avoid cross-domain issues when requesting data from web service endpoints.
 (SEE: [https://www.npmjs.com/package/local-cors-proxy](https://www.npmjs.com/package/local-cors-proxy))
 
-    $ lcp --proxyUrl http://ncpc-postgres-horizontal.herokuapp.com
+    $ lcp --proxyUrl http://horizontal-ncpc-dev.herokuapp.com
 
 ### Start and Watch
 

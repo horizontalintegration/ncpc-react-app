@@ -3,7 +3,7 @@ import React from 'react';
 import $ from 'jquery';
 import { sortBy } from 'lodash';
 
-import MyInterestsService from '../shared/mock-myinterests-service';
+import MyInterestsService from '../shared/myinterests-service';
 
 import AppContext from '../AppContext';
 import { Checkbox } from '../elements';
@@ -53,7 +53,7 @@ class MyInterests extends React.Component {
         fieldGroup.interests.map(interest => {
           return (
             <div className="d-flex align-items-stretch pb-15px pl-15px pr-15px" key={interest.id}>
-              <Checkbox callback={this.onClickCheckbox} checked={interest.checked} description={interest.description} disabled={interest.disabled} id={interest.id} imageUrl={interest.imageUrl} key={interest.id} label={interest.label} />
+              <Checkbox callback={this.onClickCheckbox} checked={interest.checked} description={interest.description} disabled={interest.disabled} id={interest.id} imageUrl={interest.url} key={interest.id} label={interest.label} />
             </div>
           )
         })

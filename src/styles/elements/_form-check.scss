@@ -2,6 +2,7 @@
   border: 1px solid $form-check-toggle-outline;
   padding-left: 0px;
   transition: border $animation-duration;
+  width: 100%;
 }
 
 .form-check-description {
@@ -28,6 +29,7 @@
   cursor: pointer;
   line-height: 20px;
   transition: color $animation-duration;
+  width: 100%;
 }
 
 .form-check-toggle {
