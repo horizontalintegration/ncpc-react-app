@@ -13,7 +13,9 @@ class Checkbox extends React.Component {
      */
 
     this.handleClick = event => {
-      this.setState({ checked:!this.state.checked });
+      this.setState({ checked:!this.state.checked }, () => {
+        this.props.callback(event, this.props, this.state)
+      });
     }
   }
 

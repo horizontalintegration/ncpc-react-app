@@ -18,28 +18,12 @@ class MyProfile extends React.Component {
     
     this.wsEndpoint;
 
-    this.timer;
-
     /*
      * EVENT HANDLERS
      */
 
-    this.onChange = event => {
-      const $this = $(event.target);
-      
-      console.log('onChange()', $this);
-
-      clearTimeout(this.timer);
-      this.timer = setTimeout(this.onTimeout, 1000, $this);
-    }
-
-    this.onTimeout = $elem => {
-      const fieldName = $elem.attr('name');
-      const fieldValue = $elem.val();
-
-      this.wsEndpoint.post(fieldName, fieldValue);
-
-      console.log('onTimeout()', $elem);
+    this.onBlurInput = (event, props, state) => {
+      console.log('onBlurInput()', props, state);
     }
   }
 
@@ -67,7 +51,7 @@ class MyProfile extends React.Component {
     });
     
     return (
-      <form name={this.props.id} onChange={this.onChange}>
+      <form name={this.props.id}>
         <div className="row">
           {fieldGroups}
         </div>
@@ -78,11 +62,11 @@ class MyProfile extends React.Component {
   renderControlType(attributes) {
     switch(attributes.controlType) {
       case 'EmailInput':
-        return <EmailInput defaultValue={attributes.value} disabled={attributes.disabled} id={attributes.id} label={attributes.label} placeholder={attributes.placeholder} />;
+        return <EmailInput callback={this.onBlurInput} defaultValue={attributes.value} disabled={attributes.disabled} id={attributes.id} label={attributes.label} placeholder={attributes.placeholder} />;
       case 'MultiSelect':
         return <MultiSelect allowMultiple={attributes.allowMultiple} disabled={attributes.disabled} id={attributes.id} label={attributes.label} options={attributes.options} placeholder={attributes.placeholder} value={attributes.value} />;
       case 'TextInput':
-        return <TextInput defaultValue={attributes.value} disabled={attributes.disabled} id={attributes.id} label={attributes.label} placeholder={attributes.placeholder} />;
+        return <TextInput callback={this.onBlurInput} defaultValue={attributes.value} disabled={attributes.disabled} id={attributes.id} label={attributes.label} placeholder={attributes.placeholder} />;
       default:
         return null;
     }

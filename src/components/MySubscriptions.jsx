@@ -20,29 +20,13 @@ class MySubscriptions extends React.Component {
 
     this.wsEndpoint;
 
-    // this.timer;
-
     /*
      * EVENT HANDLERS
      */
 
-    // this.onChange = event => {
-    //   const $this = $(event.target);
-      
-    //   console.log('onChange()', event, $this);
-
-    //   clearTimeout(this.timer);
-    //   this.timer = setTimeout(this.onTimeout, 1000, $this);
-    // }
-
-    // this.onTimeout = $elem => {
-    //   const fieldName = $elem.attr('name');
-    //   const fieldValue = $elem.prop('checked');
-
-    //   console.log('onTimeout()', $elem);
-
-    //   this.wsEndpoint.post(fieldName, fieldValue);
-    // }
+    this.onClickSwitch = (event, props, state) => {
+      console.log('onClickSwitch()', props, state);
+    };
 
     this.onClickUnsubscribeAll = event => {
       event.preventDefault();
@@ -58,7 +42,7 @@ class MySubscriptions extends React.Component {
           $this.attr('disabled', false);
         }
       );
-    }
+    };
   }
 
   /*
@@ -90,7 +74,7 @@ class MySubscriptions extends React.Component {
   render() {
     const fieldGroups = this.state.fieldGroups.map(fieldGroup => {
       return (
-        <Collapsible id={fieldGroup.catid} isActive={true} key={fieldGroup.catid} label={fieldGroup.catlabel} subscriptions={fieldGroup.subscriptions} />
+        <Collapsible callback={this.onClickSwitch} id={fieldGroup.catid} isActive={true} key={fieldGroup.catid} label={fieldGroup.catlabel} subscriptions={fieldGroup.subscriptions} />
       )
     });
 
@@ -101,15 +85,6 @@ class MySubscriptions extends React.Component {
       </form>
     )
   }
-
-  renderSwitches(subscriptions) {
-    subscriptions.map(subscription => {
-      return(
-        <Switch channel={subscription.channel} checked={subscription.checked} description={subscription.description} id={subscription.id} key={subscription.id} label={subscription.label} />
-      )
-    })
-  }
-
 }
 
 MySubscriptions.contextType = AppContext;

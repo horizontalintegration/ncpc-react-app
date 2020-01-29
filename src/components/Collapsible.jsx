@@ -28,7 +28,7 @@ class Collapsible extends React.Component {
   render() {
     const fieldGroups = this.props.subscriptions.map(subscription => {
       return(
-        <Switch channel={subscription.channel} checked={subscription.checked} description={subscription.description} id={subscription.id} key={subscription.id} label={subscription.label} />
+        <Switch channel={subscription.channel} checked={subscription.checked} description={subscription.description} id={subscription.id} key={subscription.id} label={subscription.label} callback={this.props.callback} />
       )
     });
 
