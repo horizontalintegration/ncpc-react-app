@@ -24,6 +24,10 @@ class MyProfile extends React.Component {
 
     this.onBlurInput = (event, props, state) => {
       console.log('onBlurInput()', props, state);
+
+      if (state.value !== props.defaultValue) {
+        this.wsEndpoint.post(props.id, state.value);
+      }
     }
   }
 
