@@ -27,7 +27,7 @@ class Switch extends React.Component {
 
   render() {
     return (
-      <div className={"form-switch" + (this.state.checked ? ' isActive' : '')}>
+      <div className={"form-switch mb-3" + (this.state.checked ? ' isActive' : '')}>
         <input className="form-switch-input" defaultChecked={this.props.checked} id={this.props.id} name={this.props.id} onClick={this.handleClick} type="checkbox" />
         <label className="form-switch-label" htmlFor={this.props.id}>
           <div className="form-switch-text">

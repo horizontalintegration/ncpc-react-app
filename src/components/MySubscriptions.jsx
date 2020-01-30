@@ -24,6 +24,10 @@ class MySubscriptions extends React.Component {
      * EVENT HANDLERS
      */
 
+    this.onClickBadge = (event, props, state) => {
+      console.log('onClickBadge()', props, state);
+    }
+    
     this.onClickSwitch = (event, props, state) => {
       console.log('onClickSwitch()', props, state);
     };
@@ -74,7 +78,7 @@ class MySubscriptions extends React.Component {
   render() {
     const fieldGroups = this.state.fieldGroups.map(fieldGroup => {
       return (
-        <Collapsible callback={this.onClickSwitch} id={fieldGroup.catid} isActive={true} key={fieldGroup.catid} label={fieldGroup.catlabel} subscriptions={fieldGroup.subscriptions} />
+        <Collapsible callbackBadge={this.onClickBadge} callbackSwitch={this.onClickSwitch} id={fieldGroup.catid} isActive={true} key={fieldGroup.catid} label={fieldGroup.catlabel} subscriptions={fieldGroup.subscriptions} />
       )
     });
 

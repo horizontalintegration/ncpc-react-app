@@ -1,17 +1,5 @@
 .form-switch {
-  background-color: $color-white;
-  box-shadow: 0 0 30px 0 $form-switch-shadow;
-  margin: spacer(2) 0;
-  padding: spacer(1.5) spacer(1.25) spacer(1.25) spacer(1.25);
   position: relative;
-
-  &:last-of-type {
-    margin-bottom: 0px;
-  }
-
-  @media screen and (min-width: $screen-lg-min) {
-    padding: spacer(2.5);
-  }
 }
 
 .form-switch-badge {

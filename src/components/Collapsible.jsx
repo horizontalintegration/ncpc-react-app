@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Badge } from '../components';
 import { Switch } from '../elements';
 
 class Collapsible extends React.Component {
@@ -27,8 +28,17 @@ class Collapsible extends React.Component {
 
   render() {
     const fieldGroups = this.props.subscriptions.map(subscription => {
+      const campaigns = subscription.campaigns.map(campaign => {
+        return(
+          <Badge callback={this.props.callbackBadge} checked={campaign.checked} disabled={campaign.disabled} id={campaign.id} key={campaign.id} label={campaign.label} />
+        )
+      });
+
       return(
-        <Switch channel={subscription.channel} checked={subscription.checked} description={subscription.description} id={subscription.id} key={subscription.id} label={subscription.label} callback={this.props.callback} />
+        <div className="collapsible-tile" key={subscription.id}>
+          <Switch callback={this.props.callbackSwitch} campaigns={subscription.campaigns} channel={subscription.channel} checked={subscription.checked} description={subscription.description} id={subscription.id} label={subscription.label} />
+          <div>{campaigns}</div>
+        </div>
       )
     });
 
