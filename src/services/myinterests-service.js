@@ -28,8 +28,40 @@ class MyInterestsService {
       });
   }
 
-  async post() {
+  async post(availableIntId, customerIntId, fieldValue) {
     console.log('MyInterestsService.post()');
+
+    const wsUri = this.wsEndpoint;
+
+    let data = {
+      availableIntId: availableIntId,
+      bu: this.businessUnit,
+      customerIntId: customerIntId,
+      method: 'postInt',
+      subscriberKey: this.id,
+      value: fieldValue
+    };
+
+    let options = {
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: 'POST'
+    };
+
+    return fetch(wsUri)
+      .then(response => {
+        if (!response.ok) {
+          // TODO: Handle server exception.
+        }
+        
+        return response.json();
+      })
+      .then(json => json)
+      .catch(error => {
+        // TODO: Handle server fault.
+      });
   }
 }
 

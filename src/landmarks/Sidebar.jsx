@@ -39,7 +39,11 @@ class Sidebar extends React.Component {
         <ul className="sidebar-links list-unstyled">
           {listItems}
         </ul>
-        <button className="btn btn-lg btn-primary" id="sidebar-btn-save" data-text="Save" data-saving-text="Saving...">Save</button>
+        <button className="btn btn-lg btn-primary" id="btn-save">
+          Sav
+          <span className="btn-save-label_inactive">e</span>
+          <span className="btn-save-label_active">ing...</span>
+        </button>
       </div>
     )
   }

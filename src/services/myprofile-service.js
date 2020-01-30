@@ -7,19 +7,25 @@ class MyProfileService {
 
   /*
    * GET
-   * URI: https://ncpc-horizontal.herokuapp.com/profile?id={{USER_ID}}&bu={{BUSINESS_UNIT}}
+   * URI: https://ncpc-horizontal.herokuapp.com/profile?id={{USER_ID}}&langBU={{BUSINESS_UNIT}}
    */
   async get() {
     const wsUri = this.wsEndpoint + '?id=' + this.id + '&langBU=' + this.businessUnit;
 
     console.log('MyProfileService.get()');
 
-    fetch(wsUri)
-      .then(res => res.json())
-      .then(data => {
-        return Promise.resolve(data);
+    return fetch(wsUri)
+      .then(response => {
+        if (!response.ok) {
+          // TODO: Handle server exception.
+        }
+        
+        return response.json();
       })
-      .catch(console.log);
+      .then(json => json)
+      .catch(error => {
+        // TODO: Handle server fault.
+      });
   }
 
   /*
@@ -48,7 +54,6 @@ class MyProfileService {
         value: fieldValue,
       },
       method: 'postProfile',
-      mode: 'cors',
       subscriberKey: this.id,
     };
 
@@ -60,13 +65,13 @@ class MyProfileService {
       method: 'POST'
     };
 
-    fetch(wsUri, options)
+    return fetch(wsUri, options)
       .then(response => {
         if (!response.ok) {
           // TODO: Handle error condition.
         }
 
-        return Promise.resolve(response.json());
+        return response.json();
       })
       .catch(error => {
         // TODO: Handle service fault.

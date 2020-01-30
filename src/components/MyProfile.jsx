@@ -3,7 +3,7 @@ import React from 'react';
 import $ from 'jquery';
 import { sortBy } from 'lodash';
 
-import MyProfileService from '../shared/mock-myprofile-service';
+import MyProfileService from '../services/myprofile-service';
 
 import AppContext from '../AppContext';
 import { EmailInput, MultiSelect, TextInput } from '../elements';
@@ -30,9 +30,15 @@ class MyProfile extends React.Component {
       }
     }
 
-    this.onChangeMultiSelect = (selections => {
-      console.log('onChangeMultiSelect()', selections);
-    });
+    this.onChangeMultiSelect = (fieldName, selections) => {
+      console.log('onChangeMultiSelect()');
+
+      const fieldValue = selections.map(selection => {
+        return selection.value
+      }).join(';');
+      
+      this.wsEndpoint.post(fieldName, fieldValue);
+    };
   }
 
   /*

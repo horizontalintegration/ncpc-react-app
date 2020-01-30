@@ -3,7 +3,7 @@ import React from 'react';
 import $ from 'jquery';
 import { sortBy } from 'lodash';
 
-import MySubscriptionsService from '../shared/mysubscriptions-service';
+import MySubscriptionsService from '../services/mysubscriptions-service';
 
 import AppContext from '../AppContext';
 import Collapsible from './Collapsible';

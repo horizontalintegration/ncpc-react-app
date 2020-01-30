@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 
 import { sortBy } from 'lodash';
 
-import ConfigService from './shared/config-service';
+import ConfigService from './services/config-service.local';
 
 import AppContext from './AppContext';
 import { Footer, Header, Main } from './landmarks';

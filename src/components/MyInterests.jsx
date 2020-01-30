@@ -3,7 +3,7 @@ import React from 'react';
 import $ from 'jquery';
 import { sortBy } from 'lodash';
 
-import MyInterestsService from '../shared/myinterests-service';
+import MyInterestsService from '../services/myinterests-service';
 
 import AppContext from '../AppContext';
 import { Checkbox } from '../elements';
