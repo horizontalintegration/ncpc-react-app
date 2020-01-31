@@ -25,6 +25,7 @@ class MyProfileService {
       .then(json => json)
       .catch(error => {
         // TODO: Handle server fault.
+        console.log('TODO: Handle server fault.', error);
       });
   }
 

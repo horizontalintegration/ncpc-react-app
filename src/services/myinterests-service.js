@@ -28,6 +28,19 @@ class MyInterestsService {
       });
   }
 
+  /*
+   * POST
+   * URI: https://ncpc-horizontal.herokuapp.com/interests
+   * PAYLOAD:
+   * {
+   *   "subscriberKey": {{USER_ID}},
+   *   "method": "postInt",
+   *   "bu": {{BUSINESS_UNIT}},
+   *   "availableIntId": {{ }},
+   *   "customerIntId": {{ }},
+   *   "value": fieldValue
+   * }
+   */
   async post(availableIntId, customerIntId, fieldValue) {
     console.log('MyInterestsService.post()');
 

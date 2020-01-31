@@ -24,6 +24,16 @@ class MyInterests extends React.Component {
 
     this.onClickCheckbox = (event, props, state) => {
       console.log('onClickCheckbox()', props, state);
+
+      const $save = $('#btn-save');
+      
+      $save.attr('disabled', true);
+
+      this.wsEndpoint.post(fieldName, fieldValue)
+        .then(response => {
+          $save.attr('disabled', false);
+        }
+      );
     }
   }
 

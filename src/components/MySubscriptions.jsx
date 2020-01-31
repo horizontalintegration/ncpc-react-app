@@ -26,23 +26,46 @@ class MySubscriptions extends React.Component {
 
     this.onClickBadge = (event, props, state) => {
       console.log('onClickBadge()', props, state);
+
+      const $save = $('#btn-save');
+      
+      $save.attr('disabled', true);
+
+      this.wsEndpoint.postCampaign(campaignId, campaignMemberId)
+        .then(response => {
+          $save.attr('disabled', false);
+        }
+      );
     }
     
     this.onClickSwitch = (event, props, state) => {
       console.log('onClickSwitch()', props, state);
+
+      const $save = $('#btn-save');
+      
+      $save.attr('disabled', true);
+
+      this.wsEndpoint.postSubscription(availableSubId, customerSubId, fieldValue)
+        .then(response => {
+          $save.attr('disabled', false);
+        }
+      );
     };
 
     this.onClickUnsubscribeAll = event => {
       event.preventDefault();
 
-      const $this = $(event.target);
-
       console.log('onUnsubscribeAll()');
 
+      const $save = $('#btn-save');
+      const $this = $(event.target);
+
+      $save.attr('disabled', true);
       $this.attr('disabled', true);
 
       this.wsEndpoint.unsubscribeAll()
         .then(response => {
+          $save.attr('disabled', false);
           $this.attr('disabled', false);
         }
       );

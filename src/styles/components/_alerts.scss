@@ -1,0 +1,12 @@
+.alert-light {
+  @include font-primary('medium');
+
+  border-color: $color-gray-extralight;
+}
+
+.alert-light .bi {
+  height: 1.5em;
+  margin-right: 0.5em;
+  margin-top: -3px;
+  width: 1.5em;
+}
