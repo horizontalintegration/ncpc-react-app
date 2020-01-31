@@ -67,7 +67,7 @@ When running locally, a proxy must be set up to avoid cross-domain issues when r
 
 ## Build for Production
 
-    $ parcel build src/index.js
+    $ parcel build src/index.html
 
 ---
 
