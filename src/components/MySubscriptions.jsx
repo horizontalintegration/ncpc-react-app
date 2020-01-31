@@ -31,7 +31,7 @@ class MySubscriptions extends React.Component {
       
       $save.attr('disabled', true);
 
-      this.wsEndpoint.postCampaign(campaignId, campaignMemberId)
+      this.wsEndpoint.postCampaign(props.campaignId, props.campaignUserId, state.checked)
         .then(response => {
           $save.attr('disabled', false);
         }
@@ -45,7 +45,7 @@ class MySubscriptions extends React.Component {
       
       $save.attr('disabled', true);
 
-      this.wsEndpoint.postSubscription(availableSubId, customerSubId, fieldValue)
+      this.wsEndpoint.postSubscription(props.availableSubId, props.userSubId, state.checked)
         .then(response => {
           $save.attr('disabled', false);
         }

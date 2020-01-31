@@ -60,7 +60,7 @@ ConfigService.DATA = {
       headline: 'My Profile',
       id: 'my-profile',
       order: 0,
-      wsEndpoint: '/profile.json',
+      wsEndpoint: '/profiles.json',
     }
   ],
   wsBaseUrl: '../sampleData'
