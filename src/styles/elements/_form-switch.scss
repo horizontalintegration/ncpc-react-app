@@ -14,16 +14,8 @@
   }
 }
 
-.form-switch-campaigns {
-  margin-top: 0px;
-  max-height: 0px;
-  overflow-y: hidden;
-  transition: max-height $animation-duration;
-
-  &.isActive {
-    margin-top: 1rem;
-    max-height: 120px;
-  }
+.form-switch-campaigns > *:first-child {
+  margin-top: 1rem;
 }
 
 .form-switch-description {

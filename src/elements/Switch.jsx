@@ -1,6 +1,10 @@
 import React from 'react';
 
+import $ from 'jquery';
+
 import { Badge } from '../components';
+
+import 'bootstrap/dist/js/bootstrap.bundle';
 class Switch extends React.Component {
   constructor(props) {
     super(props);
@@ -17,6 +21,12 @@ class Switch extends React.Component {
 
     this.handleClick = event => {
       this.setState({ checked:!this.state.checked }, () => {
+        if (this.state.checked) {
+          $('#collapse_' + this.props.availableSubId).collapse('show');
+        } else {
+          $('#collapse_' + this.props.availableSubId).collapse('hide');
+        }
+
         this.props.callback(event, this.props, this.state);
       });
     }
@@ -25,6 +35,10 @@ class Switch extends React.Component {
   /*
    * LIFECYCLE METHODS
    */
+
+  componentDidMount() {
+    $('#collapse_' + this.props.availableSubId).collapse({ toggle:false });
+  }
 
   render() {
     const campaigns = this.props.campaigns.map(campaign => {
@@ -46,7 +60,7 @@ class Switch extends React.Component {
             <div className="form-switch-toggle" />
           </label>
         </div>
-        <div className={"form-switch-campaigns" + (this.props.disabled ? ' d-none' : '') + (this.props.campaigns.length && this.state.checked ? ' isActive' : '')}>
+        <div className={"collapse form-switch-campaigns" + (this.props.disabled ? ' d-none' : '') + (this.props.campaigns.length && this.props.checked ? ' show' : '')} id={'collapse_' + this.props.availableSubId}>
           {campaigns}
         </div>
       </div>
