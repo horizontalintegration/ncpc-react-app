@@ -120,6 +120,7 @@
   background-color: $form-switch-toggle-bg-disabled;
 }
 
-.form-switch.isActive.isDisabled .form-switch-toggle::after {
-  margin-left: 0px;
+.form-switch.isActive.isDisabled .form-switch-toggle {
+  background-color: var(--brand-primary-active);
+  cursor: not-allowed;
 }

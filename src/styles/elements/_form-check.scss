@@ -76,3 +76,23 @@
 .form-check.isActive:hover .form-check-label {
   color: var(--brand-primary-active);
 }
+
+// Statet: isDisabled
+
+.form-check.isActive.isDisabled {
+  border: 1px solid var(--brand-primary-active);
+
+  &:hover{
+    border: 1px solid var(--brand-primary-active);
+  }
+}
+
+.form-check.isDisabled .form-check-label {
+  cursor: default;
+}
+
+.form-check.isActive.isDisabled .form-check-toggle {
+  background-color: var(--brand-primary-active);
+  border: 1px solid var(--brand-primary-active);
+  outline-color: var(--brand-primary-active);
+}

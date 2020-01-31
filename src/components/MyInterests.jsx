@@ -45,7 +45,7 @@ class MyInterests extends React.Component {
     this.wsEndpoint = new MyInterestsService(this.context.businessUnit, this.context.id, this.context.wsBaseUrl, this.props.wsEndpoint);
 
     this.wsEndpoint.get().then(fieldGroups => {
-      const sortedfieldGroups = sortBy(fieldGroups, 'order');
+      const sortedfieldGroups = sortBy(fieldGroups, 'catorder');
 
       sortedfieldGroups.forEach(fieldGroup => {
         const sortedInterests = sortBy(fieldGroup.interests, 'order');
