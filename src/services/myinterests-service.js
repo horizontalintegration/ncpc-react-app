@@ -37,11 +37,11 @@ class MyInterestsService {
    *   "method": "postInt",
    *   "bu": {{BUSINESS_UNIT}},
    *   "availableIntId": {{ }},
-   *   "customerIntId": {{ }},
+   *   "userIntId": {{ }},
    *   "value": fieldValue
    * }
    */
-  async post(availableIntId, customerIntId, fieldValue) {
+  async post(availableIntId, userIntId, fieldValue) {
     console.log('MyInterestsService.post()');
 
     const wsUri = this.wsEndpoint;
@@ -49,7 +49,7 @@ class MyInterestsService {
     let data = {
       availableIntId: availableIntId,
       bu: this.businessUnit,
-      customerIntId: customerIntId,
+      customerIntId: userIntId,
       method: 'postInt',
       subscriberKey: this.id,
       value: fieldValue

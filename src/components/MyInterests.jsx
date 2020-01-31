@@ -29,7 +29,7 @@ class MyInterests extends React.Component {
       
       $save.attr('disabled', true);
 
-      this.wsEndpoint.post(fieldName, fieldValue)
+      this.wsEndpoint.post(props.availableIntId, props.userIntId, state.checked)
         .then(response => {
           $save.attr('disabled', false);
         }
@@ -62,8 +62,8 @@ class MyInterests extends React.Component {
       return (
         fieldGroup.interests.map(interest => {
           return (
-            <div className="d-flex align-items-stretch pb-15px pl-15px pr-15px" key={interest.id}>
-              <Checkbox callback={this.onClickCheckbox} checked={interest.checked} description={interest.description} disabled={interest.disabled} id={interest.id} imageUrl={interest.url} key={interest.id} label={interest.label} />
+            <div className="d-flex align-items-stretch pb-15px pl-15px pr-15px" key={interest.availableIntId}>
+              <Checkbox availableIntId={interest.availableIntId} callback={this.onClickCheckbox} checked={interest.checked} description={interest.description} disabled={interest.disabled} imageUrl={interest.url} key={interest.availableIntId} label={interest.label} userIntId={interest.userIntId} />
             </div>
           )
         })
