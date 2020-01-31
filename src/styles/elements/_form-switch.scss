@@ -14,6 +14,18 @@
   }
 }
 
+.form-switch-campaigns {
+  margin-top: 0px;
+  max-height: 0px;
+  overflow-y: hidden;
+  transition: max-height $animation-duration;
+
+  &.isActive {
+    margin-top: 1rem;
+    max-height: 120px;
+  }
+}
+
 .form-switch-description {
   font-size: 12px;
   margin-bottom: 0px;
@@ -91,4 +103,23 @@
 
 .form-switch.isActive .form-switch-toggle::after {
   margin-left: 26px;
+}
+
+// State: isDisabled
+
+.form-switch.isDisabled .form-switch-label {
+  cursor: not-allowed;
+}
+
+.form-switch.isDisabled .form-switch-toggle {
+  background-color: $form-switch-toggle-bg-disabled;
+  cursor: not-allowed;
+}
+
+.form-switch.isDisabled:hover .form-switch-toggle {
+  background-color: $form-switch-toggle-bg-disabled;
+}
+
+.form-switch.isActive.isDisabled .form-switch-toggle::after {
+  margin-left: 0px;
 }

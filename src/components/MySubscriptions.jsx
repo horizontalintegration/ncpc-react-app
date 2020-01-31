@@ -70,6 +70,25 @@ class MySubscriptions extends React.Component {
         }
       );
     };
+
+    /*
+    * HELPER METHODS
+    */
+    
+    this.collapsibleIsActive = (order, subscriptions) => {
+      const isInactive = (subscription) => subscription.checked !== true;
+
+      // The first category is always open.
+      if (order === 0) return true;
+
+      // Additional categorys are closed if they do not contain subscriptions.
+      if (subscriptions.length === 0) return false;
+
+      // Additional categories are closed if they contain subscriptions but all are not checked.
+      if (subscriptions.every(isInactive)) return false;
+
+      return true;
+    }
   }
 
   /*
@@ -100,8 +119,10 @@ class MySubscriptions extends React.Component {
 
   render() {
     const fieldGroups = this.state.fieldGroups.map(fieldGroup => {
+      const isActive = this.collapsibleIsActive(fieldGroup.catorder, fieldGroup.subscriptions);
+
       return (
-        <Collapsible callbackBadge={this.onClickBadge} callbackSwitch={this.onClickSwitch} id={fieldGroup.catid} isActive={true} key={fieldGroup.catid} label={fieldGroup.catlabel} subscriptions={fieldGroup.subscriptions} />
+        <Collapsible callbackBadge={this.onClickBadge} callbackSwitch={this.onClickSwitch} id={fieldGroup.catid} isActive={isActive} key={fieldGroup.catid} label={fieldGroup.catlabel} order={fieldGroup.catorder} subscriptions={fieldGroup.subscriptions} />
       )
     });
 

@@ -1,16 +1,13 @@
 import React from 'react';
 
-import { Badge } from '../components';
 import { Switch } from '../elements';
 
 class Collapsible extends React.Component {
   constructor(props) {
     super(props);
 
-    const { attributes } = props;
-
     this.state = {
-      isActive: props.isActive
+      isActive: true
     }
 
     /*
@@ -28,26 +25,20 @@ class Collapsible extends React.Component {
 
   render() {
     const fieldGroups = this.props.subscriptions.map(subscription => {
-      const campaigns = subscription.campaigns.map(campaign => {
-        return(
-          <Badge callback={this.props.callbackBadge} campaignUserId={campaign.campaignUserId} campaignId={campaign.campaignId} checked={campaign.checked} disabled={campaign.disabled} key={campaign.campaignId} label={campaign.label} />
-        )
-      });
-
       return(
         <div className="collapsible-tile" key={subscription.availableSubId}>
-          <Switch availableSubId={subscription.availableSubId} callback={this.props.callbackSwitch} campaigns={subscription.campaigns} channel={subscription.channel} checked={subscription.checked} description={subscription.description} label={subscription.label} userSubId={subscription.userSubId} />
-          <div>{campaigns}</div>
+          <Switch availableSubId={subscription.availableSubId} callback={this.props.callbackSwitch} callbackBadge={this.callbackBadge} campaigns={subscription.campaigns} channel={subscription.channel} checked={subscription.checked} description={subscription.description} disabled={subscription.disabled} label={subscription.label} userSubId={subscription.userSubId} />
         </div>
       )
     });
 
     return (
-      <div className={"collapsible" + (this.state.isActive ? ' isActive' : '')}>
-        <h3 className="collapsible-headline" aria-expanded={this.state.isActive} aria-controls={this.props.id} data-toggle="collapse" data-target={"#" + this.props.id} onClick={this.handleClick}>
+      <div className={"collapsible" + (this.props.isActive ? ' isActive' : '')}>
+        <h3 className="collapsible-headline" aria-expanded={this.props.isActive} aria-controls={this.props.id} data-toggle="collapse" data-target={"#" + this.props.id} onClick={this.handleClick}>
           {this.props.label} <i className="fas fa-chevron-down"></i>
         </h3>
         <div className={"collapse" + (this.props.isActive ? ' show' : '')} id={this.props.id}>
+          <div className={"alert alert-light mt-3" + (this.props.subscriptions.length === 0 ? '' : ' d-none')}>No subscriptions are available for this category.</div>
           {fieldGroups}
         </div>
       </div>
