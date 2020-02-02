@@ -52,7 +52,7 @@ class MyProfileService {
         value: fieldValue,
       },
       method: 'postProfile',
-      subscriberKey: this.id,
+      subscriberKey: this.id
     };
 
     let options = {

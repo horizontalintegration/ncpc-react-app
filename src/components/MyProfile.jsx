@@ -27,7 +27,7 @@ class MyProfile extends React.Component {
       console.log('onBlurInput()', props, state);
 
       if (state.value !== props.defaultValue) {
-        this.wsEndpoint.post(props.id, state.value);
+        this.wsEndpoint.post(props.mappedField, state.value);
       }
     }
 
@@ -86,12 +86,12 @@ class MyProfile extends React.Component {
 
   renderControlType(attributes) {
     switch(attributes.controlType) {
-      case 'EmailInput':
-        return <EmailInput callback={this.onBlurInput} defaultValue={attributes.value} disabled={attributes.disabled} id={attributes.id} label={attributes.label} placeholder={attributes.placeholder} />;
-      case 'MultiSelect':
-        return <MultiSelect callback={this.onChangeMultiSelect} allowMultiple={attributes.allowMultiple} disabled={attributes.disabled} id={attributes.id} label={attributes.label} options={attributes.options} placeholder={attributes.placeholder} value={attributes.value} />;
-      case 'TextInput':
-        return <TextInput callback={this.onBlurInput} defaultValue={attributes.value} disabled={attributes.disabled} id={attributes.id} label={attributes.label} placeholder={attributes.placeholder} />;
+      case 'Email':
+        return <EmailInput callback={this.onBlurInput} defaultValue={attributes.value} disabled={attributes.disabled} id={attributes.id} label={attributes.label} mappedField={attributes.mappedField} placeholder={attributes.placeholder} />;
+      case 'Multi-Picklist':
+        return <MultiSelect callback={this.onChangeMultiSelect} allowMultiple={attributes.allowMultiple} disabled={attributes.disabled} id={attributes.id} label={attributes.label} mappedField={attributes.mappedField} options={attributes.options} placeholder={attributes.placeholder} value={attributes.value} />;
+      case 'Text':
+        return <TextInput callback={this.onBlurInput} defaultValue={attributes.value} disabled={attributes.disabled} id={attributes.id} label={attributes.label} mappedField={attributes.mappedField} placeholder={attributes.placeholder} />;
       default:
         return null;
     }

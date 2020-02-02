@@ -1,7 +1,6 @@
 [
   {
-    "allowMultiple": true,
-    "controlType": "MultiSelect",
+    "controlType": "Multi-Picklist",
     "disabled": false,
     "id": "interests",
     "label": "Product Interest",
@@ -13,51 +12,37 @@
         "key": "Value 5 (Option)",
         "label": "Value 5 (Option)",
         "order": 4,
-        "value": "a0Y2E00000c6W0eUAE",
-        "selected": false
+        "value": "a0Y2E00000c6W0eUAE"
       },{
         "id": "a0Y2E00000c6W0jUAE",
         "key": "Value 4 (Option)",
         "label": "Value 4 (Option)",
         "order": 3,
-        "value": "a0Y2E00000c6W0jUAE",
-        "selected": false
+        "value": "a0Y2E00000c6W0jUAE"
       },{
         "id": "a0Y2E00000c6W0pUAE",
         "key": "Value 3 (Option)",
         "label": "Value 3 (Option)",
         "order": 2,
-        "value": "a0Y2E00000c6W0pUAE",
-        "selected": false
+        "value": "a0Y2E00000c6W0pUAE"
       },{
         "id": "a0Y2E00000c6W0xUAE",
         "key": "Value 2 (Option)",
         "label": "Value 2 (Option)",
         "order": 1,
-        "value": "a0Y2E00000c6W0xUAE",
-        "selected": false
+        "value": "a0Y2E00000c6W0xUAE"
       },{
         "id": "a0Y2E00000c6W0oUAE",
         "key": "Value 1 (Option)",
         "label": "Value 1 (Option)",
         "order": 0,
-        "value": "a0Y2E00000c6W0oUAE",
-        "selected": false
+        "value": "a0Y2E00000c6W0oUAE"
       }
     ],
     "placeholder": "Select options",
-    "value": [
-      {
-        "id": "a0Y2E00000c6W0pUAE",
-        "key": "Value 3 (Option)",
-        "label": "Value 3 (Option)",
-        "order": 2,
-        "value": "a0Y2E00000c6W0pUAE",
-        "selected": false
-      }
-    ]
+    "value": "Value 1 (Option);Value 3 (Option)"
   },{
-    "controlType": "EmailInput",
+    "controlType": "Email",
     "disabled": true,
     "id": "email",
     "label": "Email",
@@ -66,7 +51,7 @@
     "placeholder": "Enter your email",
     "value": "a_young@dickenson.com"
   },{
-    "controlType": "TextInput",
+    "controlType": "Text",
     "disabled": false,
     "id": "lastName",
     "label": "Last Name",
@@ -75,7 +60,7 @@
     "placeholder": "Enter your last name",
     "value": "Young"
   },{
-    "controlType": "TextInput",
+    "controlType": "Text",
     "disabled": false,
     "id": "firstName",
     "label": "First Name",

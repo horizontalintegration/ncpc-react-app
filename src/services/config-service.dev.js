@@ -60,7 +60,7 @@ ConfigService.DATA = {
       headline: 'My Profile',
       id: 'my-profile',
       order: 0,
-      wsEndpoint: '/profile',
+      wsEndpoint: '/profiles',
     }
   ],
   wsBaseUrl: 'http://localhost:8010/proxy'
