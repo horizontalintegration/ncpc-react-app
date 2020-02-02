@@ -15,7 +15,8 @@ class MySubscriptions extends React.Component {
     super(props);
 
     this.state = {
-      fieldGroups: []
+      fieldGroups: [],
+      wsException: false
     };
 
     this.wsEndpoint;
@@ -98,23 +99,27 @@ class MySubscriptions extends React.Component {
   componentDidMount() {
     this.wsEndpoint = new MySubscriptionsService(this.context.businessUnit, this.context.id, this.context.wsBaseUrl, this.props.wsEndpoint);
 
-    this.wsEndpoint.get().then(fieldGroups => {
-      const sortedfieldGroups = sortBy(fieldGroups, 'catorder');
+    this.wsEndpoint.get()
+      .then(fieldGroups => {
+        const sortedfieldGroups = sortBy(fieldGroups, 'catorder');
 
-      sortedfieldGroups.forEach(fieldGroup => {
-        const sortedSubscriptions = sortBy(fieldGroup.subscriptions, 'order');
+        sortedfieldGroups.forEach(fieldGroup => {
+          const sortedSubscriptions = sortBy(fieldGroup.subscriptions, 'order');
 
-        sortedSubscriptions.forEach(subscription => {
-          const sortedCampaigns = sortBy(subscription.campaigns, 'order');
+          sortedSubscriptions.forEach(subscription => {
+            const sortedCampaigns = sortBy(subscription.campaigns, 'order');
 
-          subscription.campaigns = sortedCampaigns;
+            subscription.campaigns = sortedCampaigns;
+          });
+
+          fieldGroup.subscriptions = sortedSubscriptions;        
         });
 
-        fieldGroup.subscriptions = sortedSubscriptions;        
+        this.setState({ fieldGroups:sortedfieldGroups });
+      })
+      .catch(error => {
+        this.setState({ wsException:true });
       });
-
-      this.setState({ fieldGroups:sortedfieldGroups });
-    })
   }
 
   render() {
@@ -128,8 +133,14 @@ class MySubscriptions extends React.Component {
 
     return (
       <div>
+        <div className={"alert alert-danger" + (this.state.wsException ? '' : ' d-none')} role="alert">
+          <svg className="bi bi-alert-circle-fill" width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8.998 3a1 1 0 112 0 1 1 0 01-2 0zM10 6a.905.905 0 00-.9.995l.35 3.507a.553.553 0 001.1 0l.35-3.507A.905.905 0 0010 6z" clipRule="evenodd"/>
+          </svg>
+          Unable to retrieve profile information at this time. Please try again later.
+        </div>
         {fieldGroups}
-        <button className="btn btn-large btn-secondary float-right" onClick={this.onClickUnsubscribeAll}>Unsubscribe All</button>
+        <button className="btn btn-large btn-secondary float-right" disabled={this.state.wsException} onClick={this.onClickUnsubscribeAll}>Unsubscribe All</button>
       </div>
     )
   }

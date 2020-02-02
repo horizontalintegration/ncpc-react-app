@@ -13,7 +13,8 @@ class MyProfile extends React.Component {
     super(props);
 
     this.state = {
-      fieldGroups: []
+      fieldGroups: [],
+      wsException: false
     };
     
     this.wsEndpoint;
@@ -48,11 +49,15 @@ class MyProfile extends React.Component {
   componentDidMount() {
     this.wsEndpoint = new MyProfileService(this.context.businessUnit, this.context.id, this.context.wsBaseUrl, this.props.wsEndpoint);
 
-    this.wsEndpoint.get().then(fieldGroups => {
-      const sortedfieldGroups = sortBy(fieldGroups, 'order');
+    this.wsEndpoint.get()
+      .then(fieldGroups => {
+        const sortedfieldGroups = sortBy(fieldGroups, 'order');
 
-      this.setState({ fieldGroups:sortedfieldGroups });
-    });
+        this.setState({ fieldGroups:sortedfieldGroups });
+      })
+      .catch(error => {
+        this.setState({ wsException:true });
+      });
   }
 
   render() {
@@ -66,11 +71,10 @@ class MyProfile extends React.Component {
     
     return (
       <div>
-        <div className="alert alert-light d-none" role="alert">
-          <svg className="bi bi-alert-circle" width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path fillRule="evenodd" d="M10 17a7 7 0 100-14 7 7 0 000 14zm0 1a8 8 0 100-16 8 8 0 000 16z" clipRule="evenodd"/>
-            <path d="M9.002 13a1 1 0 112 0 1 1 0 01-2 0zM9.1 6.995a.905.905 0 111.8 0l-.35 3.507a.553.553 0 01-1.1 0L9.1 6.995z"/>
-          </svg> 
+        <div className={"alert alert-danger" + (this.state.wsException ? '' : ' d-none')} role="alert">
+          <svg className="bi bi-alert-circle-fill" width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8.998 3a1 1 0 112 0 1 1 0 01-2 0zM10 6a.905.905 0 00-.9.995l.35 3.507a.553.553 0 001.1 0l.35-3.507A.905.905 0 0010 6z" clipRule="evenodd"/>
+          </svg>
           Unable to retrieve profile information at this time. Please try again later.
         </div>
         <div className="row">

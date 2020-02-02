@@ -4,7 +4,8 @@
   border-color: $color-gray-extralight;
 }
 
-.alert-light .bi {
+.alert .bi.bi-alert-circle-fill {
+  color: $color-error;
   height: 1.5em;
   margin-right: 0.5em;
   margin-top: -3px;

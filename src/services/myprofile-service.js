@@ -16,16 +16,13 @@ class MyProfileService {
 
     return fetch(wsUri)
       .then(response => {
-        if (!response.ok) {
-          // TODO: Handle server exception.
-        }
+        if (!response.ok) throw response;
         
         return response.json();
       })
       .then(json => json)
       .catch(error => {
-        // TODO: Handle server fault.
-        console.log('TODO: Handle server fault.', error);
+        throw error;
       });
   }
 
