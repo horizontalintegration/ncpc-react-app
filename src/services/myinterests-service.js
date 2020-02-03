@@ -1,8 +1,9 @@
 class MyInterestsService {
-  constructor(businessUnit, id, wsBaseUrl, wsEndpoint) {
+  constructor(businessUnit, id, wsBaseUrl, wsEndpointGET, wsEndpointPOST) {
     this.businessUnit = businessUnit;
     this.id = id;
-    this.wsEndpoint = wsBaseUrl + wsEndpoint;
+    this.wsEndpointGET = wsBaseUrl + wsEndpointGET;
+    this.wsEndpointPOST = wsBaseUrl + wsEndpointPOST;
   };
 
   /*
@@ -12,7 +13,7 @@ class MyInterestsService {
   async get() {
     console.log('MyInterestsService.get()');
 
-    const wsUri = this.wsEndpoint + '?id=' + this.id + '&langBU=' + this.businessUnit;
+    const wsUri = this.wsEndpointGET + '?id=' + this.id + '&langBU=' + this.businessUnit;
 
     return fetch(wsUri)
       .then(response => {
@@ -42,7 +43,7 @@ class MyInterestsService {
   async post(availableIntId, userIntId, fieldValue) {
     console.log('MyInterestsService.post()');
 
-    const wsUri = this.wsEndpoint;
+    const wsUri = this.wsEndpointPOST;
 
     let data = {
       availableIntId: availableIntId,

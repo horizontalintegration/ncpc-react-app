@@ -16,13 +16,13 @@ class Section extends React.Component {
 
     switch(this.props.id) {
       case 'my-interests':
-        formBody = <MyInterests id={this.props.id} wsEndpoint={this.props.wsEndpoint} />
+        formBody = <MyInterests id={this.props.id}  wsEndpointGET={this.props.wsEndpointGET} wsEndpointPOST={this.props.wsEndpointPOST} />
         break;
       case 'my-subscriptions':
-        formBody = <MySubscriptions id={this.props.id} wsEndpoint={this.props.wsEndpoint} />
+        formBody = <MySubscriptions id={this.props.id}  wsEndpointGET={this.props.wsEndpointGET} wsEndpointPOST={this.props.wsEndpointPOST} />
         break;
       case 'my-profile':
-        formBody = <MyProfile id={this.props.id} wsEndpoint={this.props.wsEndpoint} />
+        formBody = <MyProfile id={this.props.id} wsEndpointGET={this.props.wsEndpointGET} wsEndpointPOST={this.props.wsEndpointPOST} />
         break;
       default:
         formBody = <div />

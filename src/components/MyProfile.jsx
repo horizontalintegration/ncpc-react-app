@@ -27,18 +27,34 @@ class MyProfile extends React.Component {
       console.log('onBlurInput()', props, state);
 
       if (state.value !== props.defaultValue) {
-        this.wsEndpoint.post(props.mappedField, state.value);
+        this.wsEndpoint.post(props.mappedField, state.value)
+          .then(response => {
+            if (response.success === 'fail') {
+              $('#exceptionModal').modal();
+            }
+          })
+          .catch(error => {
+            this.setState({ wsException:true });
+          });
       }
     }
 
-    this.onChangeMultiSelect = (fieldName, selections) => {
+    this.onChangeMultiSelect = (selections, props, state) => {
       console.log('onChangeMultiSelect()');
 
       const fieldValue = selections.map(selection => {
-        return selection.value
+        return selection.label
       }).join(';');
       
-      this.wsEndpoint.post(fieldName, fieldValue);
+      this.wsEndpoint.post(props.mappedField, fieldValue)
+        .then(response => {
+          if (response.success === 'fail') {
+            $('#exceptionModal').modal();
+          }
+        })
+        .catch(error => {
+          this.setState({ wsException:true });
+        });
     };
   }
 
@@ -47,7 +63,7 @@ class MyProfile extends React.Component {
    */
 
   componentDidMount() {
-    this.wsEndpoint = new MyProfileService(this.context.businessUnit, this.context.id, this.context.wsBaseUrl, this.props.wsEndpoint);
+    this.wsEndpoint = new MyProfileService(this.context.businessUnit, this.context.id, this.context.wsBaseUrl, this.props.wsEndpointGET, this.props.wsEndpointPOST);
 
     this.wsEndpoint.get()
       .then(fieldGroups => {

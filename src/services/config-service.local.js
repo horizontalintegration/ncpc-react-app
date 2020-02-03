@@ -48,19 +48,22 @@ ConfigService.DATA = {
       headline: 'My Subscriptions',
       id: 'my-subscriptions',
       order: 2,
-      wsEndpoint: '/subscriptions.json',
+      wsEndpointGET: '/subscriptions.json',
+      wsEndpointPOST: '/subscriptions.json'
     },{
       description: '',
       headline: 'My Interests',
       id: 'my-interests',
       order: 1,
-      wsEndpoint: '/interests.json'
+      wsEndpointGET: '/interests.json',
+      wsEndpointPOST: '/interests.json'
     },{
       description: 'When you subscribe to our monthly newsletter, you\'ll receive news about products, trends and more. Update you newsletter subscription to select the newsletter that best fits you. You can change this at any time.',
       headline: 'My Profile',
       id: 'my-profile',
       order: 0,
-      wsEndpoint: '/profiles.json',
+      wsEndpointGET: '/profiles.json',
+      wsEndpointPOST: '/profiles.json'
     }
   ],
   wsBaseUrl: '../sampleData'

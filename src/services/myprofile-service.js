@@ -1,8 +1,9 @@
 class MyProfileService {
-  constructor(businessUnit, id, wsBaseUrl, wsEndpoint) {
+  constructor(businessUnit, id, wsBaseUrl, wsEndpointGET, wsEndpointPOST) {
     this.businessUnit = businessUnit;
     this.id = id;
-    this.wsEndpoint = wsBaseUrl + wsEndpoint;
+    this.wsEndpointGET = wsBaseUrl + wsEndpointGET;
+    this.wsEndpointPOST = wsBaseUrl + wsEndpointPOST;
   };
 
   /*
@@ -10,14 +11,12 @@ class MyProfileService {
    * URI: https://ncpc-horizontal.herokuapp.com/profile?id={{USER_ID}}&langBU={{BUSINESS_UNIT}}
    */
   async get() {
-    const wsUri = this.wsEndpoint + '?id=' + this.id + '&langBU=' + this.businessUnit;
+    const wsUri = this.wsEndpointGET + '?id=' + this.id + '&langBU=' + this.businessUnit;
 
     console.log('MyProfileService.get()');
 
     return fetch(wsUri)
       .then(response => {
-        if (!response.ok) throw response;
-        
         return response.json();
       })
       .then(json => json)
@@ -31,28 +30,20 @@ class MyProfileService {
    * URI: https://ncpc-horizontal.herokuapp.com/profile
    * PAYLOAD:
    * {
-   *   "subscriberKey": "{{USER_ID}}",
-   *   "method": "postProfile",
-   *   "bu": "{{BUSINESS_UNIT}}",
-   *   "data": {
-   *     "field":"{{FIELD_NAME}}",
-   *     "value":"{{FIELD_VALUE}}"
-   *   }
+   *   "field":"{{FIELD_NAME}}",
+   *   "id": "{{USER_ID}}",
+   *   "value":"{{FIELD_VALUE}}"
    * }
    */
   async post(fieldName, fieldValue) {
     console.log('MyProfileService.post()', fieldName, fieldValue);
 
-    const wsUri = this.wsEndpoint;
+    const wsUri = this.wsEndpointPOST;
 
     let data = {
-      bu: this.businessUnit,
-      data: {
-        field: fieldName,
-        value: fieldValue,
-      },
-      method: 'postProfile',
-      subscriberKey: this.id
+      field: fieldName,
+      id: this.id,
+      value: fieldValue,
     };
 
     let options = {
@@ -65,10 +56,6 @@ class MyProfileService {
 
     return fetch(wsUri, options)
       .then(response => {
-        if (!response.ok) {
-          // TODO: Handle error condition.
-        }
-
         return response.json();
       })
       .catch(error => {

@@ -43,7 +43,7 @@ class MyInterests extends React.Component {
    */
 
   componentDidMount() {
-    this.wsEndpoint = new MyInterestsService(this.context.businessUnit, this.context.id, this.context.wsBaseUrl, this.props.wsEndpoint);
+    this.wsEndpoint = new MyInterestsService(this.context.businessUnit, this.context.id, this.context.wsBaseUrl, this.props.wsEndpointGET, this.props.wsEndpointPOST);
 
     this.wsEndpoint.get()
       .then(fieldGroups => {

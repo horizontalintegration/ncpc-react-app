@@ -97,7 +97,7 @@ class MySubscriptions extends React.Component {
    */
 
   componentDidMount() {
-    this.wsEndpoint = new MySubscriptionsService(this.context.businessUnit, this.context.id, this.context.wsBaseUrl, this.props.wsEndpoint);
+    this.wsEndpoint = new MySubscriptionsService(this.context.businessUnit, this.context.id, this.context.wsBaseUrl, this.props.wsEndpointGET, this.props.wsEndpointPOST);
 
     this.wsEndpoint.get()
       .then(fieldGroups => {

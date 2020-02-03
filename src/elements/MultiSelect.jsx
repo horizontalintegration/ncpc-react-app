@@ -19,8 +19,7 @@ class MultiSelect extends React.Component {
      */
 
     this.onChange = (selections, action) => {
-      const fieldName = action.name;
-      this.props.callback(fieldName, selections);
+      this.setState({ value:selections }, this.props.callback(selections, this.props, this.state));
     }
   }
 

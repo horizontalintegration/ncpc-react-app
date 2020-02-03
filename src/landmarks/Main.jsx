@@ -2,6 +2,7 @@ import React from 'react';
 
 import { isEqual, sortBy } from 'lodash';
 
+import { Modal } from '../components';
 import { Section } from '../elements';
 import { Sidebar } from '../landmarks';
 
@@ -17,7 +18,7 @@ class Main extends React.Component {
   render() {
     const sections = this.props.sections.map(section => {
       return (
-        <Section description={section.description} headline={section.headline} id={section.id} key={section.id} wsEndpoint={section.wsEndpoint} />
+        <Section description={section.description} headline={section.headline} id={section.id} key={section.id} wsEndpointGET={section.wsEndpointGET}  wsEndpointPOST={section.wsEndpointPOST} />
       )
     });
 
@@ -42,6 +43,7 @@ class Main extends React.Component {
             </div>
           </div>
         </form>
+        <Modal body="Your information could not be updated. Please try again later." title="Oops!" />
       </main>
     )
   }

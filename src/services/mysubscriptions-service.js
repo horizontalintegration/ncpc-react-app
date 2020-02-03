@@ -1,10 +1,11 @@
 import $ from 'jquery';
 
 class MySubscriptionsService {
-  constructor(businessUnit, id, wsBaseUrl, wsEndpoint) {
+  constructor(businessUnit, id, wsBaseUrl, wsEndpointGET, wsEndpointPOST) {
     this.businessUnit = businessUnit;
     this.id = id;
-    this.wsEndpoint = wsBaseUrl + wsEndpoint;
+    this.wsEndpointGET = wsBaseUrl + wsEndpointGET;
+    this.wsEndpointPOST = wsBaseUrl + wsEndpointPOST;
   };
 
   /*
@@ -14,7 +15,7 @@ class MySubscriptionsService {
   async get() {
     console.log('MySubscriptionsService.get()');
 
-    const wsUri = this.wsEndpoint + '?id=' + this.id + '&langBU=' + this.businessUnit;
+    const wsUri = this.wsEndpointGET + '?id=' + this.id + '&langBU=' + this.businessUnit;
 
     let options = {
       headers: {
@@ -37,7 +38,7 @@ class MySubscriptionsService {
 
   /*
    * POST (Campaign)
-   * URI: https://ncpc-horizontal.herokuapp.com/subscriptions
+   * URI: https://ncpc-horizontal.herokuapp.com/subscription
    * PAYLOAD:
    * {
    *   "bu": "{{BUSINESS_UNIT}}",
@@ -45,13 +46,13 @@ class MySubscriptionsService {
    *   "campaignMemberId": "{{ }}",
    *   "method": "postSub",
    *   "status":"false",
-   *   "subscriberKey": "{{USER_ID}}"
+   *   "id": "{{USER_ID}}"
    * }
    */
   async postCampaign(campaignId, campaignMemberId) {
     console.log('MySubscriptionsService.postCampaign()', campaignId, campaignMemberId);
     
-    const wsUri = this.wsEndpoint + '?id=' + this.id + '&langBU=' + this.businessUnit;
+    const wsUri = this.wsEndpointPOST + '?id=' + this.id + '&langBU=' + this.businessUnit;
 
     let body = {
       bu: this.businessUnit,
@@ -86,28 +87,24 @@ class MySubscriptionsService {
 
   /*
    * POST (Subscription)
-   * URI: https://ncpc-horizontal.herokuapp.com/subscriptions
+   * URI: https://ncpc-horizontal.herokuapp.com/subscription
    * PAYLOAD:
    * {
    *   "availableSubId":"{{ }}",
-   *   "bu": "{{BUSINESS_UNIT}}",
-   *   "customerSubId": "{{ }}"
-   *   "method": "postSub",
-   *   "subscriberKey": "{{USER_ID}}",
+   *   "customerSubId": "{{ }}",
+   *   "id": "{{USER_ID}}",
    *   "value":"{{FIELD_VALUE}}"
    * }
    */
   async postSubscription(availableSubId, customerSubId, fieldValue) {
     console.log('MySubscriptionsService.postSubscription()', availableSubId, customerSubId, fieldValue);
     
-    const wsUri = this.wsEndpoint + '?id=' + this.id + '&langBU=' + this.businessUnit;
+    const wsUri = this.wsEndpointPOST + '?id=' + this.id + '&langBU=' + this.businessUnit;
 
     let body = {
       availableSubId: availableSubId,
-      bu: this.businessUnit,
       customerSubId: customerSubId,
-      method: 'postSub',
-      subscriberKey: this.id,
+      id: this.id,
       value: fieldValue
     };
 
@@ -135,7 +132,7 @@ class MySubscriptionsService {
 
   /*
    * POST (Unsubscribe All)
-   * URI: https://ncpc-horizontal.herokuapp.com/subscriptions
+   * URI: https://ncpc-horizontal.herokuapp.com/subscription
    * PAYLOAD:
    * {
    *   "bu": "{{BUSINESS_UNIT}}",
