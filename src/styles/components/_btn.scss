@@ -28,6 +28,10 @@
   }
 }
 
+#btn-save {
+  transition: all $animation-duration;
+}
+
 #btn-save > * {
   transition: all $animation-duration;
 }
