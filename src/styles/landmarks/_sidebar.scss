@@ -43,19 +43,3 @@
     border-left: 0px;
   }
 }
-
-#sidebar-btn-save {
-  border-radius: 0;
-  bottom: 0;
-  left: 0;
-  position: fixed;
-  right: 0;
-  width: 100%;
-  z-index: 100;
-
-  @media screen and (min-width: $screen-lg-min) {
-    border-radius: 8px;
-    position: relative;
-    width: auto;
-  }
-}
