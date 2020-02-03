@@ -47,23 +47,17 @@ ConfigService.DATA = {
       description: '',
       headline: 'My Subscriptions',
       id: 'my-subscriptions',
-      order: 2,
-      wsEndpointGET: '/subscriptions',
-      wsEndpointPOST: '/subscription',
+      order: 2
     },{
       description: '',
       headline: 'My Interests',
       id: 'my-interests',
-      order: 1,
-      wsEndpointGET: '/interests',
-      wsEndpointPOST: '/interest'
+      order: 1
     },{
       description: 'When you subscribe to our monthly newsletter, you\'ll receive news about products, trends and more. Update you newsletter subscription to select the newsletter that best fits you. You can change this at any time.',
       headline: 'My Profile',
       id: 'my-profile',
-      order: 0,
-      wsEndpointGET: '/profiles',
-      wsEndpointPOST: '/profile'
+      order: 0
     }
   ],
   wsBaseUrl: 'http://localhost:8010/proxy'

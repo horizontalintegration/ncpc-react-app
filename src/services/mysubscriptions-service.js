@@ -1,11 +1,10 @@
 import $ from 'jquery';
 
 class MySubscriptionsService {
-  constructor(businessUnit, id, wsBaseUrl, wsEndpointGET, wsEndpointPOST) {
+  constructor(businessUnit, id, wsBaseUrl) {
     this.businessUnit = businessUnit;
     this.id = id;
-    this.wsEndpointGET = wsBaseUrl + wsEndpointGET;
-    this.wsEndpointPOST = wsBaseUrl + wsEndpointPOST;
+    this.wsBaseUrl = wsBaseUrl;
   };
 
   /*
@@ -15,7 +14,7 @@ class MySubscriptionsService {
   async get() {
     console.log('MySubscriptionsService.get()');
 
-    const wsUri = this.wsEndpointGET + '?id=' + this.id + '&langBU=' + this.businessUnit;
+    const wsUri = this.wsBaseUrl + '/subscriptions?id=' + this.id + '&langBU=' + this.businessUnit;
 
     let options = {
       headers: {
@@ -41,26 +40,22 @@ class MySubscriptionsService {
    * URI: https://ncpc-horizontal.herokuapp.com/subscription
    * PAYLOAD:
    * {
-   *   "bu": "{{BUSINESS_UNIT}}",
    *   "campaignId":"{{ }}",
    *   "campaignMemberId": "{{ }}",
-   *   "method": "postSub",
-   *   "status":"false",
    *   "id": "{{USER_ID}}"
+   *   "status":"false",
    * }
    */
   async postCampaign(campaignId, campaignMemberId) {
     console.log('MySubscriptionsService.postCampaign()', campaignId, campaignMemberId);
     
-    const wsUri = this.wsEndpointPOST + '?id=' + this.id + '&langBU=' + this.businessUnit;
+    const wsUri = this.wsBaseUrl + '/campaign';
 
     let body = {
-      bu: this.businessUnit,
       campaignId: campaignId,
+      id: this.id,
       campaignMemberId: campaignMemberId,
-      method: 'postSub',
-      status: false,
-      subscriberKey: this.id
+      status: false
     };
 
     let options = {
@@ -73,15 +68,11 @@ class MySubscriptionsService {
 
     return fetch(wsUri, options)
       .then(response => {
-        if (!response.ok) {
-          // TODO: Handle server exception.
-        }
-        
         return response.json();
       })
       .then(json => json)
       .catch(error => {
-        // TODO: Handle server fault.
+        throw error;
       });
   }
 
@@ -99,7 +90,7 @@ class MySubscriptionsService {
   async postSubscription(availableSubId, customerSubId, fieldValue) {
     console.log('MySubscriptionsService.postSubscription()', availableSubId, customerSubId, fieldValue);
     
-    const wsUri = this.wsEndpointPOST + '?id=' + this.id + '&langBU=' + this.businessUnit;
+    const wsUri = this.wsBaseUrl + '/subscription';
 
     let body = {
       availableSubId: availableSubId,
@@ -118,30 +109,47 @@ class MySubscriptionsService {
 
     return fetch(wsUri, options)
       .then(response => {
-        if (!response.ok) {
-          // TODO: Handle server exception.
-        }
-        
         return response.json();
       })
       .then(json => json)
       .catch(error => {
-        // TODO: Handle server fault.
+        throw error;
       });
   }
 
   /*
    * POST (Unsubscribe All)
-   * URI: https://ncpc-horizontal.herokuapp.com/subscription
+   * URI: https://ncpc-horizontal.herokuapp.com/unsubscribeAll
    * PAYLOAD:
    * {
-   *   "bu": "{{BUSINESS_UNIT}}",
-   *   "method": "postSub",
-   *   "subscriberKey": "{{USER_ID}}",
+   *   "id": "{{USER_ID}}",
    * }
    */
   async postUnsubscribeAll() {
     console.log('MySubscriptionsService.postUnsubscribeAll()');
+
+    const wsUri = this.wsBaseUrl + '/unsubscribeAll';
+
+    let body = {
+      id: this.id
+    };
+
+    let options = {
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: 'POST'
+    };
+
+    return fetch(wsUri, options)
+      .then(response => {
+        return response.json();
+      })
+      .then(json => json)
+      .catch(error => {
+        throw error;
+      });
   }
 }
 

@@ -75,7 +75,7 @@ class MyProfile extends React.Component {
    */
 
   componentDidMount() {
-    this.wsEndpoint = new MyProfileService(this.context.businessUnit, this.context.id, this.context.wsBaseUrl, this.props.wsEndpointGET, this.props.wsEndpointPOST);
+    this.wsEndpoint = new MyProfileService(this.context.businessUnit, this.context.id, this.context.wsBaseUrl);
 
     this.wsEndpoint.get()
       .then(fieldGroups => {

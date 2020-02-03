@@ -1,9 +1,8 @@
 class MyProfileService {
-  constructor(businessUnit, id, wsBaseUrl, wsEndpointGET, wsEndpointPOST) {
+  constructor(businessUnit, id, wsBaseUrl) {
     this.businessUnit = businessUnit;
     this.id = id;
-    this.wsEndpointGET = wsBaseUrl + wsEndpointGET;
-    this.wsEndpointPOST = wsBaseUrl + wsEndpointPOST;
+    this.wsBaseUrl = wsBaseUrl;
   };
 
   /*
@@ -11,7 +10,7 @@ class MyProfileService {
    * URI: https://ncpc-horizontal.herokuapp.com/profile?id={{USER_ID}}&langBU={{BUSINESS_UNIT}}
    */
   async get() {
-    const wsUri = this.wsEndpointGET + '?id=' + this.id + '&langBU=' + this.businessUnit;
+    const wsUri = this.wsBaseUrl + '/profiles?id=' + this.id + '&langBU=' + this.businessUnit;
 
     console.log('MyProfileService.get()');
 
@@ -38,7 +37,7 @@ class MyProfileService {
   async post(fieldName, fieldValue) {
     console.log('MyProfileService.post()', fieldName, fieldValue);
 
-    const wsUri = this.wsEndpointPOST;
+    const wsUri = this.wsBaseUrl + '/profile';
 
     let data = {
       field: fieldName,
