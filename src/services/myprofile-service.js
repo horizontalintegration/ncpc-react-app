@@ -1,7 +1,11 @@
+import LoggingService from './logging-service';
+
 class MyProfileService {
-  constructor(businessUnit, id, wsBaseUrl) {
-    this.businessUnit = businessUnit;
+  constructor(bu, id, lang, wsBaseUrl) {
+    this.bu = bu;
     this.id = id;
+    this.lang = lang;
+    this.logger = new LoggingService(wsBaseUrl);
     this.wsBaseUrl = wsBaseUrl;
   };
 
@@ -10,16 +14,22 @@ class MyProfileService {
    * URI: https://ncpc-horizontal.herokuapp.com/profile?id={{USER_ID}}&langBU={{BUSINESS_UNIT}}
    */
   async get() {
-    const wsUri = this.wsBaseUrl + '/profiles?id=' + this.id + '&langBU=' + this.businessUnit;
+    const wsUri = this.wsBaseUrl + '/profiles?id=' + this.id + '&langBU=' + this.bu + '-' + this.lang;
 
     console.log('MyProfileService.get()');
 
     return fetch(wsUri)
+      .then(response => response.json())
       .then(response => {
-        return response.json();
+        if (response.success && response.success === 'fail') {
+          this.logger.post(wsUri, response.message, response.status, response.body);
+        }
+
+        return response;
       })
-      .then(json => json)
       .catch(error => {
+        this.logger.post(wsUri, error, '500', options);
+
         throw error;
       });
   }
@@ -54,11 +64,18 @@ class MyProfileService {
     };
 
     return fetch(wsUri, options)
+      .then(response => response.json())
       .then(response => {
-        return response.json();
+        if (response.success && response.success === 'fail') {
+          this.logger.post(wsUri, response.message, response.status, response.body);
+        }
+
+        return response;
       })
       .catch(error => {
-        // TODO: Handle service fault.
+        this.logger.post(wsUri, error, '500', options);
+
+        throw error;
       });
   }
 }

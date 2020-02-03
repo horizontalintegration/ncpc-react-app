@@ -64,7 +64,7 @@ class MySubscriptions extends React.Component {
       $save.attr('disabled', true);
       $this.attr('disabled', true);
 
-      this.wsEndpoint.unsubscribeAll()
+      this.wsEndpoint.postUnsubscribeAll()
         .then(response => {
           $save.attr('disabled', false);
           $this.attr('disabled', false);
@@ -97,7 +97,7 @@ class MySubscriptions extends React.Component {
    */
 
   componentDidMount() {
-    this.wsEndpoint = new MySubscriptionsService(this.context.businessUnit, this.context.id, this.context.wsBaseUrl);
+    this.wsEndpoint = new MySubscriptionsService(this.context.bu, this.context.id, this.context.lang, this.context.wsBaseUrl);
 
     this.wsEndpoint.get()
       .then(fieldGroups => {

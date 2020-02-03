@@ -1,9 +1,11 @@
-import $ from 'jquery';
+import LoggingService from './logging-service';
 
 class MySubscriptionsService {
-  constructor(businessUnit, id, wsBaseUrl) {
-    this.businessUnit = businessUnit;
+  constructor(bu, id, lang, wsBaseUrl) {
+    this.bu = bu;
     this.id = id;
+    this.lang = lang;
+    this.logger = new LoggingService(wsBaseUrl);
     this.wsBaseUrl = wsBaseUrl;
   };
 
@@ -14,7 +16,7 @@ class MySubscriptionsService {
   async get() {
     console.log('MySubscriptionsService.get()');
 
-    const wsUri = this.wsBaseUrl + '/subscriptions?id=' + this.id + '&langBU=' + this.businessUnit;
+    const wsUri = this.wsBaseUrl + '/subscriptions?id=' + this.id + '&langBU=' + this.bu + '-' + this.lang;
 
     let options = {
       headers: {
@@ -24,13 +26,17 @@ class MySubscriptionsService {
     };
 
     return fetch(wsUri, options)
+      .then(response => response.json())
       .then(response => {
-        if (!response.ok) throw response;
-        
-        return response.json();
+        if (response.success && response.success === 'fail') {
+          this.logger.post(wsUri, response.message, response.status, response.body);
+        }
+
+        return response;
       })
-      .then(json => json)
       .catch(error => {
+        this.logger.post(wsUri, error, '500', options);
+
         throw error;
       });
   }
@@ -67,11 +73,17 @@ class MySubscriptionsService {
     };
 
     return fetch(wsUri, options)
+      .then(response => response.json())
       .then(response => {
-        return response.json();
+        if (response.success && response.success === 'fail') {
+          this.logger.post(wsUri, response.message, response.status, response.body);
+        }
+
+        return response;
       })
-      .then(json => json)
       .catch(error => {
+        this.logger.post(wsUri, error, '500', options);
+
         throw error;
       });
   }
@@ -108,11 +120,17 @@ class MySubscriptionsService {
     };
 
     return fetch(wsUri, options)
+      .then(response => response.json())
       .then(response => {
-        return response.json();
+        if (response.success && response.success === 'fail') {
+          this.logger.post(wsUri, response.message, response.status, response.body);
+        }
+
+        return response;
       })
-      .then(json => json)
       .catch(error => {
+        this.logger.post(wsUri, error, '500', options);
+
         throw error;
       });
   }
@@ -143,11 +161,17 @@ class MySubscriptionsService {
     };
 
     return fetch(wsUri, options)
+      .then(response => response.json())
       .then(response => {
-        return response.json();
+        if (response.success && response.success === 'fail') {
+          this.logger.post(wsUri, response.message, response.status, response.body);
+        }
+
+        return response;
       })
-      .then(json => json)
       .catch(error => {
+        this.logger.post(wsUri, error, '500', options);
+
         throw error;
       });
   }

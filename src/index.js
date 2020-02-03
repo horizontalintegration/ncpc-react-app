@@ -1,4 +1,6 @@
 import 'react-app-polyfill/ie11';
+import 'url-search-params-polyfill';
+import 'whatwg-fetch';
 import cssVars from 'css-vars-ponyfill';
 
 import React from 'react';
@@ -22,7 +24,6 @@ class App extends React.Component {
 
     this.state = {
       banner: '',
-      businessUnit: 'EN-US',
       colors: [],
       images: {
         banner: {},
@@ -34,7 +35,25 @@ class App extends React.Component {
 
     this.configService = new ConfigService();
 
+    this.sharedContext = {
+      bu: null,
+      id: null,
+      lang: null,
+      wsBaseUrl: null
+    };
+
     this.urlParams = new URLSearchParams(window.location.search);
+  }
+
+  componentWillMount() {
+    const id = (this.urlParams.has('id') ? this.urlParams.get('id') : null);
+    const langBU = (this.urlParams.has('langBU') ? this.urlParams.get('langBU').split('-') : 'EN-US');
+    const bu = (langBU.length ? langBU[0] : null);
+    const lang = (langBU.length === 2 ? langBU[1] : null);
+
+    this.sharedContext.bu = bu;
+    this.sharedContext.id = id;
+    this.sharedContext.lang  = lang;
   }
 
   componentDidMount() {
@@ -46,15 +65,12 @@ class App extends React.Component {
   }
 
   render() {
-    const sharedContext = {
-      businessUnit: (this.urlParams.has('bu') ? this.urlParams.get('bu') : 'EN-US'),
-      id: (this.urlParams.has('id') ? this.urlParams.get('id') : ''),
-      wsBaseUrl: this.state.wsBaseUrl
-    };
+    // wsBaseUrl comes from a web service call instead of from a query string param, so we set it here instead of in componentWillMount().
+    this.sharedContext.wsBaseUrl = this.state.wsBaseUrl;
 
     return (
       <React.Fragment>
-        <AppContext.Provider value={sharedContext}>
+        <AppContext.Provider value={this.sharedContext}>
           <Header logo={this.state.images.logo} />
           <Main banner={this.state.banner} sections={this.state.sections} wsBaseUrl={this.state.wsBaseUrl} />
           <Footer />

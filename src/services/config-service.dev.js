@@ -29,7 +29,6 @@ ConfigService.DATA = {
       value: '#2275D3'
     }
   ],
-  id: 'PCPC-0001',
   images: {
     banner: {
       id: '????',

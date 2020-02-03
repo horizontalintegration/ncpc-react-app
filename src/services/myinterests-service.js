@@ -1,7 +1,11 @@
+import LoggingService from './logging-service';
+
 class MyInterestsService {
-  constructor(businessUnit, id, wsBaseUrl) {
-    this.businessUnit = businessUnit;
+  constructor(bu, id, lang, wsBaseUrl) {
+    this.bu = bu;
     this.id = id;
+    this.lang = lang;
+    this.logger = new LoggingService(wsBaseUrl);
     this.wsBaseUrl = wsBaseUrl;
   };
 
@@ -12,14 +16,20 @@ class MyInterestsService {
   async get() {
     console.log('MyInterestsService.get()');
 
-    const wsUri = this.wsBaseUrl + '/interests?id=' + this.id + '&langBU=' + this.businessUnit;
+    const wsUri = this.wsBaseUrl + '/interests?id=' + this.id + '&langBU=' + this.bu + '-' + this.lang;
 
     return fetch(wsUri)
+      .then(response => response.json())
       .then(response => {
-        return response.json();
+        if (response.success && response.success === 'fail') {
+          this.logger.post(wsUri, response.message, response.status, response.body);
+        }
+
+        return response;
       })
-      .then(json => json)
       .catch(error => {
+        this.logger.post(wsUri, error, '500', options);
+
         throw error;
       });
   }
@@ -56,11 +66,17 @@ class MyInterestsService {
     };
 
     return fetch(wsUri, options)
+      .then(response => response.json())
       .then(response => {
-        return response.json();
+        if (response.success && response.success === 'fail') {
+          this.logger.post(wsUri, response.message, response.status, response.body);
+        }
+
+        return response;
       })
-      .then(json => json)
       .catch(error => {
+        this.logger.post(wsUri, error, '500', options);
+
         throw error;
       });
   }

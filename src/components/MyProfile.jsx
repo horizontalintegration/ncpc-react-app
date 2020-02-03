@@ -75,7 +75,7 @@ class MyProfile extends React.Component {
    */
 
   componentDidMount() {
-    this.wsEndpoint = new MyProfileService(this.context.businessUnit, this.context.id, this.context.wsBaseUrl);
+    this.wsEndpoint = new MyProfileService(this.context.bu, this.context.id, this.context.lang, this.context.wsBaseUrl);
 
     this.wsEndpoint.get()
       .then(fieldGroups => {
@@ -85,6 +85,8 @@ class MyProfile extends React.Component {
       })
       .catch(error => {
         this.setState({ wsException:true });
+
+        this.loggingEndpoint.post(wsUri, error, '500', options);
       });
   }
 
