@@ -30,7 +30,8 @@ class MultiSelect extends React.Component {
   componentDidMount() {
     const sortedOptions = sortBy(this.props.options, 'order');
 
-    const labels = this.props.value.split(';');
+    const labels = (this.props.value !== null) ? this.props.value.split(';') : [];
+    
     const value = sortedOptions.filter(option => labels.includes(option.label));
 
     const sortedValue = sortBy(value, 'order');

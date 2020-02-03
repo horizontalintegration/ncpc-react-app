@@ -32,9 +32,15 @@ class MyInterests extends React.Component {
 
       this.wsEndpoint.post(props.availableIntId, props.userIntId, state.checked)
         .then(response => {
-          $save.attr('disabled', false);
-        }
-      );
+          if (response.success === 'fail') {
+            $('#exceptionModal').modal();
+          } else {
+            $save.attr('disabled', false);
+          }
+        })
+        .catch(error => {
+          this.setState({ wsException:true });
+        });
     }
   }
 

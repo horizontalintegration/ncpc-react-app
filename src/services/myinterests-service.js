@@ -17,8 +17,6 @@ class MyInterestsService {
 
     return fetch(wsUri)
       .then(response => {
-        if (!response.ok) throw response;
-        
         return response.json();
       })
       .then(json => json)
@@ -32,11 +30,9 @@ class MyInterestsService {
    * URI: https://ncpc-horizontal.herokuapp.com/interests
    * PAYLOAD:
    * {
-   *   "subscriberKey": {{USER_ID}},
-   *   "method": "postInt",
-   *   "bu": {{BUSINESS_UNIT}},
    *   "availableIntId": {{ }},
-   *   "userIntId": {{ }},
+   *   "customerIntId": {{ }},
+   *   "id": {{USER_ID}},
    *   "value": fieldValue
    * }
    */
@@ -47,10 +43,8 @@ class MyInterestsService {
 
     let data = {
       availableIntId: availableIntId,
-      bu: this.businessUnit,
       customerIntId: userIntId,
-      method: 'postInt',
-      subscriberKey: this.id,
+      id: this.id,
       value: fieldValue
     };
 
@@ -62,17 +56,13 @@ class MyInterestsService {
       method: 'POST'
     };
 
-    return fetch(wsUri)
+    return fetch(wsUri, options)
       .then(response => {
-        if (!response.ok) {
-          // TODO: Handle server exception.
-        }
-        
         return response.json();
       })
       .then(json => json)
       .catch(error => {
-        // TODO: Handle server fault.
+        throw error;
       });
   }
 }

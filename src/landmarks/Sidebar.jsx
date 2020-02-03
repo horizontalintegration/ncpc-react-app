@@ -16,6 +16,8 @@ class Sidebar extends React.Component {
       const $this = $(event.target);
       const $anchor = $(`a[name="${ $this.attr('href').replace('#', '') }"]`);
       const $header = $('header');
+
+      console.log($this, $anchor, $header, $anchor.offset().top - $header.outerHeight());
   
       $('html, body').animate({
         scrollTop: $anchor.offset().top - $header.outerHeight()
