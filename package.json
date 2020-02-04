@@ -6,9 +6,14 @@
   "keywords": [],
   "author": "Horizontal Digital",
   "license": "ISC",
+  "engines": {
+    "npm": "6.11.3",
+    "node": "12.12.0"
+  },
   "scripts": {
     "clean": "rm dist/bundle.js",
     "start": "NODE_ENV=development parcel src/index.html --open",
+    "build": "parcel build src/index.html",
     "build-prod": "parcel build src/index.html"
   },
   "staticFiles": {
