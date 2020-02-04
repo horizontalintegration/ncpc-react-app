@@ -59,7 +59,7 @@
 
 .form-switch-toggle {
   align-self: flex-start;
-  background-color: $form-switch-toggle-bg;
+  background-color: var(--form-switch-default);
   border-radius: 100px;
   cursor: pointer;
   display: inline-block;
@@ -86,11 +86,11 @@
 // State: isActive
 
 .form-switch.isActive .form-switch-toggle {
-  background-color: var(--brand-primary);
+  background-color: var(--form-switch-active);
 }
 
 .form-switch.isActive:hover .form-switch-toggle {
-  background-color: var(--brand-primary-active);
+  background-color: var(--form-switch-hover);
 }
 
 .form-switch.isActive .form-switch-toggle::after {
@@ -104,15 +104,15 @@
 }
 
 .form-switch.isDisabled .form-switch-toggle {
-  background-color: $form-switch-toggle-bg-disabled;
+  background-color: var(--form-switch-disabled);
   cursor: not-allowed;
 }
 
 .form-switch.isDisabled:hover .form-switch-toggle {
-  background-color: $form-switch-toggle-bg-disabled;
+  background-color: var(--form-switch-disabled);
 }
 
 .form-switch.isActive.isDisabled .form-switch-toggle {
-  background-color: var(--brand-primary-active);
+  background-color: var(--form-switch-hover);
   cursor: not-allowed;
 }

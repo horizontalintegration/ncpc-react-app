@@ -68,7 +68,7 @@
 }
 
 .form-multiselect *[class*='-multiValue'] > *:last-child:hover {
-  background-color: var(--brand-primary-active);
+  background-color: var(--button-hover);
   color: $color-white;
   cursor: pointer;
 }

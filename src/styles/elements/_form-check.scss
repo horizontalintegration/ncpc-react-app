@@ -1,5 +1,5 @@
 .form-check {
-  border: 1px solid $form-check-toggle-outline;
+  border: 1px solid var(--form-check-default);
   padding-left: 0px;
   transition: border $animation-duration;
   width: 100%;
@@ -8,6 +8,7 @@
 .form-check-description {
   @include font-primary();
 
+  color: $color-text;
   font-size: 14px;
   margin-bottom: 0px;
   margin-top: 1rem;
@@ -38,31 +39,39 @@
   display: inline-block;
   height: 12px;
   margin-right: 10px;
-  outline: 1px solid $form-check-toggle-outline;
+  outline: 1px solid var(--form-check-default);
   transition: all $animation-duration;
   width: 12px;
+}
+
+// State: hover
+
+.form-check:hover {
+  border: 1px solid var(--form-check-hover);
+}
+
+.form-check:hover .form-check-toggle {
+  outline: 1px solid var(--form-check-hover);
 }
 
 // State: isActive
 
 .form-check.isActive {
-  border: 1px solid var(--brand-primary);
+  border: 1px solid var(--form-check-active);
 
   &:hover{
-    border: 1px solid var(--brand-primary-active);
+    border: 1px solid var(--form-check-hover);
   }
 }
 
-.form-check.isActive .form-check-toggle {
-  background-color: var(--brand-primary);
-  border: 1px solid var(--brand-primary);
-  outline-color: var(--brand-primary);
+.form-check.isActive .form-check-label {
+  color: var(--form-check-active);
 }
 
-.form-check.isActive:hover .form-check-toggle {
-  background-color: var(--brand-primary-active);
-  border: 1px solid var(--brand-primary-active);
-  outline-color: var(--brand-primary-active);
+.form-check.isActive .form-check-toggle {
+  background-color: var(--form-check-active);
+  border: 1px solid var(--form-check-active);
+  outline-color: var(--form-check-active);
 }
 
 .form-check.isActive .form-check-description {
@@ -70,29 +79,35 @@
 }
 
 .form-check.isActive .form-check-label {
-  color: var(--brand-primary);
+  color: var(--form-check-active);
 }
 
 .form-check.isActive:hover .form-check-label {
-  color: var(--brand-primary-active);
+  color: var(--form-check-active-hover);
+}
+
+.form-check.isActive:hover .form-check-toggle {
+  background-color: var(--form-check-active-hover);
+  border: 1px solid var(--form-check-active-hover);
+  outline-color: var(--form-check-active-hover);
 }
 
 // Statet: isDisabled
-
-.form-check.isActive.isDisabled {
-  border: 1px solid var(--brand-primary-active);
-
-  &:hover{
-    border: 1px solid var(--brand-primary-active);
-  }
-}
 
 .form-check.isDisabled .form-check-label {
   cursor: default;
 }
 
+.form-check.isActive.isDisabled {
+  border: 1px solid var(--form-chck-active);
+}
+
+.form-check.isActive.isDisabled:hover {
+  border: 1px solid var(--form-check-active);
+}
+
 .form-check.isActive.isDisabled .form-check-toggle {
-  background-color: var(--brand-primary-active);
-  border: 1px solid var(--brand-primary-active);
-  outline-color: var(--brand-primary-active);
+  background-color: var(--form-check-active);
+  border: 1px solid var(--form-check-active);
+  outline-color: var(--form-check-active);
 }

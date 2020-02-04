@@ -13,12 +13,12 @@
 }
 
 .btn-primary {
-  background: var(--brand-primary);
-  border-color: var(--brand-primary);
+  background: var(--button-default);
+  border-color: var(--button-default);
 
   &:hover {
-    background: var(--brand-primary-active);
-    border-color: var(--brand-primary-active);
+    background: var(--button-hover);
+    border-color: var(--button-hover);
   }
 
   &:disabled {
