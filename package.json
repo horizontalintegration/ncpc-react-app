@@ -10,6 +10,7 @@
     "npm": "6.11.3",
     "node": "12.12.0"
   },
+  "proxy": "http://horizontal-ncpc-dev.herokuapp.com",
   "scripts": {
     "clean": "rm dist/bundle.js",
     "start": "node app.js",
