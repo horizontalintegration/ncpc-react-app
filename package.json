@@ -13,8 +13,8 @@
   "scripts": {
     "clean": "rm dist/bundle.js",
     "start": "NODE_ENV=development parcel src/index.html --open",
-    "build": "parcel build src/index.html -d ../",
-    "build-prod": "parcel build src/index.html"
+    "build": "parcel build src/index.html",
+    "build-prod": "parcel build src/index.html node app.js"
   },
   "staticFiles": {
     "staticPath": "src/static",
@@ -25,6 +25,7 @@
     "bootstrap-icons": "^1.0.0-alpha2",
     "components": "^0.1.0",
     "css-vars-ponyfill": "^2.1.2",
+    "express": "^4.17.1",
     "jquery": "^3.4.1",
     "local-cors-proxy": "^1.0.2",
     "lodash": "^4.17.15",
