@@ -16,7 +16,7 @@ class MyInterestsService {
   async get() {
     console.log('MyInterestsService.get()');
 
-    const wsUri = this.wsBaseUrl + '/interests?id=' + this.id + '&langBU=' + this.bu + '-' + this.lang;
+    const wsUri = this.wsBaseUrl + '/interests?id=' + this.id + '&langBU=' + this.lang + '-' + this.bu;
 
     return fetch(wsUri)
       .then(response => response.json())

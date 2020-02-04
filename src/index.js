@@ -11,7 +11,7 @@ import { sortBy } from 'lodash';
 import ConfigService from './services/config-service.dev';
 
 import AppContext from './AppContext';
-import { Footer, Header, Main } from './landmarks';
+import { Footer, Header, Main, Roadblock } from './landmarks';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/main.scss';
@@ -42,18 +42,26 @@ class App extends React.Component {
       wsBaseUrl: null
     };
 
+    this.sharedContextIsValid = false;
+
     this.urlParams = new URLSearchParams(window.location.search);
   }
 
   componentWillMount() {
     const id = (this.urlParams.has('id') ? this.urlParams.get('id') : null);
-    const langBU = (this.urlParams.has('langBU') ? this.urlParams.get('langBU').split('-') : 'EN-US');
-    const bu = (langBU.length ? langBU[0] : null);
-    const lang = (langBU.length === 2 ? langBU[1] : null);
+    const langBU = (this.urlParams.has('langBU') ? this.urlParams.get('langBU').split('-') : []);
+    const bu = (langBU.length === 2 ? langBU[1] : null);
+    const lang = (langBU.length === 2 ? langBU[0] : null);
 
     this.sharedContext.bu = bu;
     this.sharedContext.id = id;
     this.sharedContext.lang  = lang;
+
+    // id must exist and must be 18 characters in length.
+    // bu must exist and must be 2 characters in length.
+    if (id && id.length === 18 && bu && bu.length === 2) {
+      this.sharedContextIsValid = true;
+    }
   }
 
   componentDidMount() {
@@ -72,11 +80,19 @@ class App extends React.Component {
       <React.Fragment>
         <AppContext.Provider value={this.sharedContext}>
           <Header logo={this.state.images.logo} />
-          <Main banner={this.state.banner} sections={this.state.sections} wsBaseUrl={this.state.wsBaseUrl} />
+          {this.renderMain(this.sharedContextIsValid)}
           <Footer />
         </AppContext.Provider>
       </React.Fragment>
     )
+  }
+
+  renderMain(isValid) {
+    if (isValid) {
+      return <Main banner={this.state.banner} sections={this.state.sections} wsBaseUrl={this.state.wsBaseUrl} />;
+    } else {
+      return <Roadblock />;
+    }
   }
 }
 

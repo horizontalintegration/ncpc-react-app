@@ -16,7 +16,7 @@ class MySubscriptionsService {
   async get() {
     console.log('MySubscriptionsService.get()');
 
-    const wsUri = this.wsBaseUrl + '/subscriptions?id=' + this.id + '&langBU=' + this.bu + '-' + this.lang;
+    const wsUri = this.wsBaseUrl + '/subscriptions?id=' + this.id + '&langBU=' + this.lang + '-' + this.bu;
 
     let options = {
       headers: {

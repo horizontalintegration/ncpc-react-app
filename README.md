@@ -65,6 +65,8 @@ When running locally, a proxy must be set up to avoid cross-domain issues when r
 
     $ npm start
 
+  NOTE: The NCPC React app requires valid user ID and language/business unit query string parameters exist; e.g. http://horizontal-ncpc-dev.herokuapp.com/?id=0032E00002jqqM5QAI&langBU=EN-US
+
 ## Build for Production
 
     $ parcel build src/index.html
