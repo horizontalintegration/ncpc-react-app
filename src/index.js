@@ -1,6 +1,6 @@
 import 'react-app-polyfill/ie11';
 import 'url-search-params-polyfill';
-import 'whatwg-fetch';
+// import 'whatwg-fetch';
 import cssVars from 'css-vars-ponyfill';
 
 import React from 'react';
