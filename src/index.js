@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom';
 
 import { sortBy } from 'lodash';
 
-import ConfigService from './services/config-service.prod';
+import ConfigService from './services/config-service';
 
 import AppContext from './AppContext';
 import { Footer, Header, Main, Roadblock } from './landmarks';
@@ -33,21 +33,80 @@ class App extends React.Component {
       wsBaseUrl: ''
     };
 
-    this.configService = new ConfigService();
+    this.configService;
 
     this.sharedContext = {
       bu: null,
       id: null,
       lang: null,
-      wsBaseUrl: null
+      wsBaseUrl: null,
+      setBusinessUnit: (language) => {
+        this.sharedContext.bu = language.bu;
+        this.sharedContext.lang = language.lang;
+      }
     };
 
     this.sharedContextIsValid = false;
 
     this.urlParams = new URLSearchParams(window.location.search);
+
+    this.parsePackageConfig = function(data) {
+      const config = data.config[0];
+      const languages = data.languages;
+
+      let parsedLanguages = languages.map(language => {
+        const parsedLanguage = {
+          bu: language.ncpc__business_unit_parameter__c,
+          label: language.name,
+          lang: language.ncpc__language_parameter__c
+        };
+        return parsedLanguage;
+      });
+
+      let parsedData = {
+        banner: config.ncpc__banner_text_2__c,
+        colors: {
+          brandPrimary: config.ncpc__brand_color_hex_code__c,
+          buttonDefault: config.ncpc__button_color_hex_code__c,
+          formSwitchActive: config.ncpc__active_toggle_color_hex_code__c,
+        },
+        images: {
+          banner: {
+            link: null,
+            url: config.ncpc__banner_url__c
+          },
+          logo: {
+            link: config.ncpc__logo_link_url__c,
+            url: config.ncpc__logo_url__c
+          }
+        },
+        languages: parsedLanguages,
+        sections: [
+          {
+            "description": config.ncpc__profile_text__c,
+            "headline": config.ncpc__profile_header__c,
+            "id": "my-profile",
+            "order": 0
+          },{
+            "description": config.ncpc__interest_text__c,
+            "headline": config.ncpc__interest_header__c,
+            "id": "my-interests",
+            "order": 1
+          },{
+            "description": config.ncpc__subscription_intro__c,
+            "headline": config.ncpc__subscription_header__c,
+            "id": "my-subscriptions",
+            "order": 2
+          }
+        ],
+        wsBaseUrl: 'http://localhost:8010/proxy'
+      };
+
+      return parsedData;
+    }
   }
 
-  componentWillMount() {
+  componentWillMount() { 
     const id = (this.urlParams.has('id') ? this.urlParams.get('id') : null);
     const langBU = (this.urlParams.has('langBU') ? this.urlParams.get('langBU').split('-') : []);
     const bu = (langBU.length === 2 ? langBU[1] : null);
@@ -62,13 +121,17 @@ class App extends React.Component {
     if (id && id.length === 18 && bu && bu.length === 2) {
       this.sharedContextIsValid = true;
     }
+
+    this.configService = new ConfigService(bu, lang, 'http://localhost:8010/proxy');
   }
 
   componentDidMount() {
     this.configService.get().then(data => {
-      data.sections = sortBy(data.sections, 'order');
+      let parsedData = this.parsePackageConfig(data);
 
-      this.setState(data);
+      parsedData.sections = sortBy(parsedData.sections, 'order');
+
+      this.setState(parsedData);
     })
   }
 
@@ -79,9 +142,29 @@ class App extends React.Component {
     return (
       <React.Fragment>
         <AppContext.Provider value={this.sharedContext}>
-          <Header logo={this.state.images.logo} />
+          <Header languages={this.state.languages} logoImage={this.state.images.logo.url} logoLink={this.state.images.logo.link} />
           {this.renderMain(this.sharedContextIsValid)}
           <Footer />
+          <style>
+            {`
+            :root {
+              --brand-primary: ${this.state.colors.brandPrimary};
+
+              --button-default: ${this.state.colors.buttonDefault};
+              --button-hover: #146BCF;
+      
+              --form-check-active: ${this.state.colors.brandPrimary};
+              --form-check-active-hover: #146BCF;
+              --form-check-default: #D1CFCE;
+              --form-check-hover: #146BCF;
+      
+              --form-switch-active: ${this.state.colors.formSwitchActive};
+              --form-switch-default: #646464;
+              --form-switch-disabled: #CCCCCC;
+              --form-switch-hover: #146BCF;
+            }
+            `}
+          </style>
         </AppContext.Provider>
       </React.Fragment>
     )
@@ -102,7 +185,3 @@ ReactDOM.render(<App />, rootElement);
 
 // Instantiate the CSS Variables Ponyfill. (SEE: https://jhildenbiddle.github.io/css-vars-ponyfill/)
 cssVars();
-
-// Override CSS Variables
-// document.documentElement.style.setProperty("--brand-primary", "#658D1B");
-// document.documentElement.style.setProperty("--brand-primary-active", "#466213");

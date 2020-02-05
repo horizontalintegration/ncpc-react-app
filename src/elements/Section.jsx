@@ -33,7 +33,7 @@ class Section extends React.Component {
       <section>
         <a name={this.props.id} />
         <h2>{this.props.headline}</h2>
-        {this.props.description ? <p className="section-description">{this.props.description}</p> : ''}
+        {this.props.description ? <div className="section-description" dangerouslySetInnerHTML={{ __html:this.props.description }} /> : ''}
         {formBody}
       </section>
     )
