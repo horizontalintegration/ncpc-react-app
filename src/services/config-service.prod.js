@@ -59,7 +59,7 @@ ConfigService.DATA = {
       order: 0
     }
   ],
-  wsBaseUrl: ''
+  wsBaseUrl: '/api'
 };
 
 export default ConfigService;
