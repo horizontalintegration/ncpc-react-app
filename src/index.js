@@ -41,8 +41,21 @@ class App extends React.Component {
       lang: null,
       wsBaseUrl: null,
       setBusinessUnit: (language) => {
-        this.sharedContext.bu = language.bu;
-        this.sharedContext.lang = language.lang;
+        this.configService.bu = language.bu;
+        this.configService.lang = language.lang;
+
+        this.setState();
+
+        this.configService.get().then(data => {
+          let parsedData = this.parsePackageConfig(data);
+    
+          parsedData.sections = sortBy(parsedData.sections, 'order');
+    
+          this.setState(parsedData);
+
+          this.sharedContext.bu = language.bu;
+          this.sharedContext.lang = language.lang;
+        })
       }
     };
 
@@ -132,7 +145,7 @@ class App extends React.Component {
       parsedData.sections = sortBy(parsedData.sections, 'order');
 
       this.setState(parsedData);
-    })
+    });
   }
 
   render() {
