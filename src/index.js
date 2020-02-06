@@ -23,8 +23,19 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      banner: '',
+      banner: null,
       colors: [],
+      footer: {
+        companyName: null,
+        privacy: {
+          label: null,
+          url: null
+        },
+        terms: {
+          label: null,
+          url: null
+        }
+      },
       images: {
         banner: {},
         logo: {}
@@ -119,7 +130,7 @@ class App extends React.Component {
         <AppContext.Provider value={{ value:this.state.sharedContext, setValue:this.setSharedContext }}>
           <Header languages={this.state.languages} logoImage={this.state.images.logo.url} logoLink={this.state.images.logo.link} />
           {this.renderMain()}
-          <Footer />
+          <Footer companyName={this.state.footer.companyName} privacyLabel={this.state.footer.privacy.label} privacyUrl={this.state.footer.privacy.url} termsLabel={this.state.footer.terms.label} termsUrl={this.state.footer.terms.url} />
           <style>
             {`
             :root {

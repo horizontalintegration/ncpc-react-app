@@ -57,6 +57,17 @@ class ConfigService {
           buttonDefault: config.ncpc__button_color_hex_code__c,
           formSwitchActive: config.ncpc__active_toggle_color_hex_code__c,
         },
+        footer: {
+          companyName: config.ncpc__company_name__c,
+          privacy: {
+            label: config.ncpc__footer_privacy_text__c,
+            url: config.ncpc__footer_privacy_url__c
+          },
+          terms: {
+            label: config.ncpc__footer_terms_text__c,
+            url: config.ncpc__footer_terms_url__c
+          }
+        },
         images: {
           banner: {
             link: null,

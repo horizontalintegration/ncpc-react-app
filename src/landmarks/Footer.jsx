@@ -18,11 +18,11 @@ class Footer extends React.Component {
       <footer>
         <div className="container">
           <ul className="footer-nav list-inline">
-            <li className="list-inline-item"><a href="https://www.horizontal.com/page/privacy-center">Privacy Policy</a></li>
-            <li className="list-inline-item"><a href="https://www.horizontal.com/page/website-terms">Terms of Use</a></li>
+            <li className="list-inline-item"><a href={this.props.privacyUrl}>{this.props.privacyLabel}</a></li>
+            <li className="list-inline-item"><a href={this.props.termsUrl}>{this.props.termsLabel}</a></li>
           </ul>
-          <p className="footer-legal">Horizontal®</p>
-          <p className="footer-legal">© {this.state.today.getFullYear()} Horizontal</p>
+          <p className="footer-legal">{this.props.companyName}®</p>
+          <p className="footer-legal">© {this.state.today.getFullYear()} {this.props.companyName}</p>
         </div>
       </footer>
     );
