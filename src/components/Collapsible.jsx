@@ -7,14 +7,14 @@ class Collapsible extends React.Component {
     super(props);
 
     this.state = {
-      isActive: true
+      isActive: this.props.isActive
     }
 
     /*
      * EVENT HANDLERS
      */
 
-    this.handleClick = event => {
+    this.handleClick = () => {
       this.setState({ isActive:!this.state.isActive });
     }
   }
@@ -33,7 +33,7 @@ class Collapsible extends React.Component {
     });
 
     return (
-      <div className={"collapsible" + (this.props.isActive ? ' isActive' : '')}>
+      <div className={"collapsible" + (this.state.isActive ? ' isActive' : '')}>
         <h3 className="collapsible-headline" aria-expanded={this.props.isActive} aria-controls={this.props.id} data-toggle="collapse" data-target={"#" + this.props.id} onClick={this.handleClick}>
           {this.props.label} <i className="fas fa-chevron-down"></i>
         </h3>
