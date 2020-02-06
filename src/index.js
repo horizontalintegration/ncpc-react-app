@@ -56,7 +56,7 @@ class App extends React.Component {
      * HELPER METHODS
      */
 
-    this.fectData = () => {
+    this.fetchData = () => {
       this.wsEndpoint.bu = this.state.sharedContext.bu;
       this.wsEndpoint.lang = this.state.sharedContext.lang;
       this.wsEndpoint.wsBaseUrl = this.state.sharedContext.wsBaseUrl;
@@ -113,12 +113,12 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.fectData();
+    this.fetchData();
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.state.sharedContext.bu !== prevState.sharedContext.bu || this.state.sharedContext.lang !== prevState.sharedContext.lang) {
-      this.fectData();
+      this.fetchData();
     }
   }
   
