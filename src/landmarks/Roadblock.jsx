@@ -1,10 +1,6 @@
 import React from 'react';
 
 class Roadblock extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   /*
    * LIFECYCLE METHODS
    */

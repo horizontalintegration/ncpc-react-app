@@ -28,7 +28,7 @@ class MyInterestsService {
         return response;
       })
       .catch(error => {
-        this.logger.post(wsUri, error, '500', options);
+        this.logger.post(wsUri, error, '500');
 
         throw error;
       });

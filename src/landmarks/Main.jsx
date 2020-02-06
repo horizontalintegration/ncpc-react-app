@@ -1,16 +1,10 @@
 import React from 'react';
 
-import { isEqual, sortBy } from 'lodash';
-
 import { Modal } from '../components';
 import { Section } from '../elements';
 import { Sidebar } from '../landmarks';
 
 class Main extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   /*
    * LIFECYCLE METHODS
    */

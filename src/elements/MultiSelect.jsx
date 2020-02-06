@@ -1,7 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
-import $ from 'jquery';
 import { sortBy } from 'lodash';
 import Select from 'react-select'; // SEE: https://github.com/JedWatson/react-select
 

@@ -18,7 +18,7 @@ class MyProfile extends React.Component {
       wsException: false
     };
     
-    this.wsEndpoint;
+    this.wsEndpoint = null;
 
     /*
      * EVENT HANDLERS
@@ -87,8 +87,6 @@ class MyProfile extends React.Component {
         })
         .catch(error => {
           this.setState({ wsException:true });
-
-          this.loggingEndpoint.post(wsUri, error, '500', options);
         });
     };
   }

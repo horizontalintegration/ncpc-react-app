@@ -36,7 +36,7 @@ class Header extends React.Component {
   render() {
     const dropdownItems = this.state.languages.map(language => {
       return (
-        <a className="dropdown-item" href="#{language.lang}-{language.bu}" key={language.label} onClick={() => this.handleClick(event, language)}>{language.label}</a>
+        <a className="dropdown-item" href="#{language.lang}-{language.bu}" key={language.label} onClick={(event) => this.handleClick(event, language)}>{language.label}</a>
       )
     });
 
@@ -51,7 +51,7 @@ class Header extends React.Component {
     return (
       <header>
         <div className="container">
-          <a href={this.props.logoLink} target="_blank"><img className="header-logo" src={this.props.logoImage} /></a>
+          <a href={this.props.logoLink} rel="noopener noreferrer" target="_blank"><img className="header-logo" src={this.props.logoImage} alt="" /></a>
           <div className="dropdown  header-locale">
             <button className="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               {dropdownLabel}

@@ -13,8 +13,6 @@ class Switch extends React.Component {
       checked: props.checked
     }
 
-    this.wsEndpoint;
-
     /*
      * EVENT HANDLERS
      */

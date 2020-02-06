@@ -8,8 +8,6 @@ import MySubscriptionsService from '../services/mysubscriptions-service';
 import AppContext from '../AppContext';
 import Collapsible from './Collapsible';
 
-import { Switch } from '../elements';
-
 class MySubscriptions extends React.Component {
   constructor(props) {
     super(props);
@@ -20,7 +18,7 @@ class MySubscriptions extends React.Component {
       wsException: false
     };
 
-    this.wsEndpoint;
+    this.wsEndpoint = null;
 
     /*
      * EVENT HANDLERS

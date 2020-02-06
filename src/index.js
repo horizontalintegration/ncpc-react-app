@@ -6,8 +6,6 @@ import cssVars from 'css-vars-ponyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { clone, sortBy } from 'lodash';
-
 import ConfigService from './services/config-service';
 
 import AppContext from './AppContext';
@@ -78,7 +76,7 @@ class App extends React.Component {
       }), () => {
         this.urlParams.set('langBU', lang + '-' + bu);
 
-        window.history.replaceState({}, '', `${location.pathname}?${this.urlParams}`);
+        window.history.replaceState({}, '', `${window.location.pathname}?${this.urlParams}`);
       });
     };
   }

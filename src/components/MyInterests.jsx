@@ -18,7 +18,7 @@ class MyInterests extends React.Component {
       wsException: false
     };
 
-    this.wsEndpoint;
+    this.wsEndpoint = null;
 
     /*
      * EVENT HANDLERS

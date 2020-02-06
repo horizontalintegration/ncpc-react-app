@@ -3,10 +3,6 @@ import React from 'react';
 import { MyInterests, MySubscriptions, MyProfile } from '../components';
 
 class Section extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   /*
    * LIFECYCLE METHODS
    */
@@ -31,7 +27,7 @@ class Section extends React.Component {
 
     return (
       <section>
-        <a name={this.props.id} />
+        <a className="sr-only" href={'#' + this.props.id} name={this.props.id}>{this.props.headline}</a>
         <h2>{this.props.headline}</h2>
         {this.props.description ? <div className="section-description" dangerouslySetInnerHTML={this.renderDescription()} /> : ''}
         {formBody}
