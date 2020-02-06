@@ -6,7 +6,7 @@ import cssVars from 'css-vars-ponyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { sortBy } from 'lodash';
+import { clone, sortBy } from 'lodash';
 
 import ConfigService from './services/config-service';
 
@@ -30,94 +30,51 @@ class App extends React.Component {
         logo: {}
       },
       sections: [],
-      wsBaseUrl: ''
-    };
-
-    this.configService;
-
-    this.sharedContext = {
-      bu: null,
-      id: null,
-      lang: null,
-      wsBaseUrl: null,
-      setBusinessUnit: (language) => {
-        this.configService.bu = language.bu;
-        this.configService.lang = language.lang;
-
-        this.setState();
-
-        this.configService.get().then(data => {
-          let parsedData = this.parsePackageConfig(data);
-    
-          parsedData.sections = sortBy(parsedData.sections, 'order');
-    
-          this.setState(parsedData);
-
-          this.sharedContext.bu = language.bu;
-          this.sharedContext.lang = language.lang;
-        })
+      sharedContext: {
+        bu: null,
+        id: null,
+        isValid: false,
+        lang: null,
+        wsBaseUrl: 'http://localhost:8010/proxy'
       }
     };
 
-    this.sharedContextIsValid = false;
+    this.wsEndpoint = new ConfigService();
 
     this.urlParams = new URLSearchParams(window.location.search);
 
-    this.parsePackageConfig = function(data) {
-      const config = data.config[0];
-      const languages = data.languages;
+    /*
+     * HELPER METHODS
+     */
 
-      let parsedLanguages = languages.map(language => {
-        const parsedLanguage = {
-          bu: language.ncpc__business_unit_parameter__c,
-          label: language.name,
-          lang: language.ncpc__language_parameter__c
-        };
-        return parsedLanguage;
+    this.fectData = () => {
+      this.wsEndpoint.bu = this.state.sharedContext.bu;
+      this.wsEndpoint.lang = this.state.sharedContext.lang;
+      this.wsEndpoint.wsBaseUrl = this.state.sharedContext.wsBaseUrl;
+
+      this.wsEndpoint.get().then(data => {
+        this.setState(data);
       });
+    };
 
-      let parsedData = {
-        banner: config.ncpc__banner_text_2__c,
-        colors: {
-          brandPrimary: config.ncpc__brand_color_hex_code__c,
-          buttonDefault: config.ncpc__button_color_hex_code__c,
-          formSwitchActive: config.ncpc__active_toggle_color_hex_code__c,
-        },
-        images: {
-          banner: {
-            link: null,
-            url: config.ncpc__banner_url__c
-          },
-          logo: {
-            link: config.ncpc__logo_link_url__c,
-            url: config.ncpc__logo_url__c
-          }
-        },
-        languages: parsedLanguages,
-        sections: [
-          {
-            "description": config.ncpc__profile_text__c,
-            "headline": config.ncpc__profile_header__c,
-            "id": "my-profile",
-            "order": 0
-          },{
-            "description": config.ncpc__interest_text__c,
-            "headline": config.ncpc__interest_header__c,
-            "id": "my-interests",
-            "order": 1
-          },{
-            "description": config.ncpc__subscription_intro__c,
-            "headline": config.ncpc__subscription_header__c,
-            "id": "my-subscriptions",
-            "order": 2
-          }
-        ],
-        wsBaseUrl: 'http://localhost:8010/proxy'
-      };
+    this.setSharedContext = (lang, bu) => {
+      this.setState(prevState => ({
+        sharedContext: {
+          ...prevState.sharedContext,
+          bu: bu,
+          lang: lang
+        }
+      }), () => {
+        this.urlParams.set('langBU', lang + '-' + bu);
 
-      return parsedData;
-    }
+        window.history.replaceState({}, '', `${location.pathname}?${this.urlParams}`);
+      });
+    };
   }
+
+  /*
+   * LIFECYCLE METHODS
+   */
 
   componentWillMount() { 
     const id = (this.urlParams.has('id') ? this.urlParams.get('id') : null);
@@ -125,38 +82,43 @@ class App extends React.Component {
     const bu = (langBU.length === 2 ? langBU[1] : null);
     const lang = (langBU.length === 2 ? langBU[0] : null);
 
-    this.sharedContext.bu = bu;
-    this.sharedContext.id = id;
-    this.sharedContext.lang  = lang;
+    let isValid = false;
 
     // id must exist and must be 18 characters in length.
     // bu must exist and must be 2 characters in length.
     if (id && id.length === 18 && bu && bu.length === 2) {
-      this.sharedContextIsValid = true;
+      isValid = true;
     }
 
-    this.configService = new ConfigService(bu, lang, 'http://localhost:8010/proxy');
+    this.setState({
+      sharedContext: {
+        ...this.state.sharedContext,
+        bu: bu,
+        id: id,
+        isValid: isValid,
+        lang: lang
+      }
+    });
+
+    this.wsEndpoint = new ConfigService(bu, lang, 'http://localhost:8010/proxy');
   }
 
   componentDidMount() {
-    this.configService.get().then(data => {
-      let parsedData = this.parsePackageConfig(data);
-
-      parsedData.sections = sortBy(parsedData.sections, 'order');
-
-      this.setState(parsedData);
-    });
+    this.fectData();
   }
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.state.sharedContext.bu !== prevState.sharedContext.bu || this.state.sharedContext.lang !== prevState.sharedContext.lang) {
+      this.fectData();
+    }
+  }
+  
   render() {
-    // wsBaseUrl comes from a web service call instead of from a query string param, so we set it here instead of in componentWillMount().
-    this.sharedContext.wsBaseUrl = this.state.wsBaseUrl;
-
     return (
       <React.Fragment>
-        <AppContext.Provider value={this.sharedContext}>
+        <AppContext.Provider value={{ value:this.state.sharedContext, setValue:this.setSharedContext }}>
           <Header languages={this.state.languages} logoImage={this.state.images.logo.url} logoLink={this.state.images.logo.link} />
-          {this.renderMain(this.sharedContextIsValid)}
+          {this.renderMain()}
           <Footer />
           <style>
             {`
@@ -183,9 +145,9 @@ class App extends React.Component {
     )
   }
 
-  renderMain(isValid) {
-    if (isValid) {
-      return <Main banner={this.state.banner} sections={this.state.sections} wsBaseUrl={this.state.wsBaseUrl} />;
+  renderMain() {
+    if (this.state.sharedContext.isValid) {
+      return <Main bannerImg={this.state.images.banner.url} bannerText={this.state.banner} sections={this.state.sections} />;
     } else {
       return <Roadblock />;
     }

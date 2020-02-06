@@ -26,9 +26,9 @@ class Main extends React.Component {
       <main>
         <form>
           <div className="container-fluid">
-            <div className="hero">
+            <div className="hero" style={{ backgroundImage: 'url(' + this.props.bannerImg + ')' }}>
               <div className="container">
-                <h1 className="hero-heading">{this.props.banner}</h1>
+                <h1 className="hero-heading">{this.props.bannerText}</h1>
               </div>
             </div>
           </div>

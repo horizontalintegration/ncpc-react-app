@@ -14,6 +14,7 @@ class MyInterests extends React.Component {
 
     this.state = {
       fieldGroups: [],
+      langBu: null,
       wsException: false
     };
 
@@ -42,6 +43,32 @@ class MyInterests extends React.Component {
           this.setState({ wsException:true });
         });
     }
+
+    /*
+     * HELPER METHODS
+     */
+
+    this.fetchData = () => {
+      this.wsEndpoint.bu = this.context.value.bu;
+      this.wsEndpoint.lang = this.context.value.lang;
+      this.wsEndpoint.wsBaseUrl = this.context.value.wsBaseUrl;
+
+      this.wsEndpoint.get()
+        .then(fieldGroups => {
+          const sortedfieldGroups = sortBy(fieldGroups, 'catorder');
+
+          sortedfieldGroups.forEach(fieldGroup => {
+            const sortedInterests = sortBy(fieldGroup.interests, 'order');
+
+            fieldGroup.interests = sortedInterests;
+          });
+
+          this.setState({ fieldGroups:sortedfieldGroups });
+        })
+        .catch(error => {
+          this.setState({ wsException:true });
+        });
+    };
   }
 
   /*
@@ -49,23 +76,21 @@ class MyInterests extends React.Component {
    */
 
   componentDidMount() {
-    this.wsEndpoint = new MyInterestsService(this.context.bu, this.context.id, this.context.lang, this.context.wsBaseUrl);
+    this.wsEndpoint = new MyInterestsService(this.context.value.bu, this.context.value.id, this.context.value.lang, this.context.value.wsBaseUrl);
 
-    this.wsEndpoint.get()
-      .then(fieldGroups => {
-        const sortedfieldGroups = sortBy(fieldGroups, 'catorder');
+    this.setState({ langBu: this.context.value.lang + '-' + this.context.value.bu });
+  }
 
-        sortedfieldGroups.forEach(fieldGroup => {
-          const sortedInterests = sortBy(fieldGroup.interests, 'order');
-
-          fieldGroup.interests = sortedInterests;
-        });
-
-        this.setState({ fieldGroups:sortedfieldGroups });
-      })
-      .catch(error => {
-        this.setState({ wsException:true });
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.state.langBu !== prevState.langBu) {
+      this.fetchData();
+    }
+    
+    if (this.state.langBu !== this.context.value.lang + '-' + this.context.value.bu) {
+      this.setState({
+        langBu: this.context.value.lang + '-' + this.context.value.bu
       });
+    }
   }
 
   render() {

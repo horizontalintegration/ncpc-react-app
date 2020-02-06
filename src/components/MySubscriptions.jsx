@@ -16,6 +16,7 @@ class MySubscriptions extends React.Component {
 
     this.state = {
       fieldGroups: [],
+      langBu: null,
       wsException: false
     };
 
@@ -89,7 +90,35 @@ class MySubscriptions extends React.Component {
       if (subscriptions.every(isInactive)) return false;
 
       return true;
-    }
+    };
+
+    this.fetchData = () => {
+      this.wsEndpoint.bu = this.context.value.bu;
+      this.wsEndpoint.lang = this.context.value.lang;
+      this.wsEndpoint.wsBaseUrl = this.context.value.wsBaseUrl;
+
+      this.wsEndpoint.get()
+        .then(fieldGroups => {
+          const sortedfieldGroups = sortBy(fieldGroups, 'catorder');
+
+          sortedfieldGroups.forEach(fieldGroup => {
+            const sortedSubscriptions = sortBy(fieldGroup.subscriptions, 'order');
+
+            sortedSubscriptions.forEach(subscription => {
+              const sortedCampaigns = sortBy(subscription.campaigns, 'order');
+
+              subscription.campaigns = sortedCampaigns;
+            });
+
+            fieldGroup.subscriptions = sortedSubscriptions;        
+          });
+
+          this.setState({ fieldGroups:sortedfieldGroups });
+        })
+        .catch(error => {
+          this.setState({ wsException:true });
+        });
+    };
   }
 
   /*
@@ -97,29 +126,21 @@ class MySubscriptions extends React.Component {
    */
 
   componentDidMount() {
-    this.wsEndpoint = new MySubscriptionsService(this.context.bu, this.context.id, this.context.lang, this.context.wsBaseUrl);
+    this.wsEndpoint = new MySubscriptionsService(this.context.value.bu, this.context.value.id, this.context.value.lang, this.context.value.wsBaseUrl);
 
-    this.wsEndpoint.get()
-      .then(fieldGroups => {
-        const sortedfieldGroups = sortBy(fieldGroups, 'catorder');
+    this.setState({ langBu: this.context.value.lang + '-' + this.context.value.bu });
+  }
 
-        sortedfieldGroups.forEach(fieldGroup => {
-          const sortedSubscriptions = sortBy(fieldGroup.subscriptions, 'order');
-
-          sortedSubscriptions.forEach(subscription => {
-            const sortedCampaigns = sortBy(subscription.campaigns, 'order');
-
-            subscription.campaigns = sortedCampaigns;
-          });
-
-          fieldGroup.subscriptions = sortedSubscriptions;        
-        });
-
-        this.setState({ fieldGroups:sortedfieldGroups });
-      })
-      .catch(error => {
-        this.setState({ wsException:true });
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.state.langBu !== prevState.langBu) {
+      this.fetchData();
+    }
+    
+    if (this.state.langBu !== this.context.value.lang + '-' + this.context.value.bu) {
+      this.setState({
+        langBu: this.context.value.lang + '-' + this.context.value.bu
       });
+    }
   }
 
   render() {

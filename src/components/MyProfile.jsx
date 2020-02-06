@@ -14,6 +14,7 @@ class MyProfile extends React.Component {
 
     this.state = {
       fieldGroups: [],
+      langBu: null,
       wsException: false
     };
     
@@ -43,7 +44,7 @@ class MyProfile extends React.Component {
             this.setState({ wsException:true });
           });
       }
-    }
+    };
 
     this.onChangeMultiSelect = (selections, props, state) => {
       console.log('onChangeMultiSelect()');
@@ -68,6 +69,28 @@ class MyProfile extends React.Component {
           this.setState({ wsException:true });
         });
     };
+
+    /*
+     * HELPER METHODS
+     */
+
+    this.fetchData = () => {
+      this.wsEndpoint.bu = this.context.value.bu;
+      this.wsEndpoint.lang = this.context.value.lang;
+      this.wsEndpoint.wsBaseUrl = this.context.value.wsBaseUrl;
+
+      this.wsEndpoint.get()
+        .then(fieldGroups => {
+          const sortedfieldGroups = sortBy(fieldGroups, 'order');
+
+          this.setState({ fieldGroups:sortedfieldGroups });
+        })
+        .catch(error => {
+          this.setState({ wsException:true });
+
+          this.loggingEndpoint.post(wsUri, error, '500', options);
+        });
+    };
   }
 
   /*
@@ -75,19 +98,21 @@ class MyProfile extends React.Component {
    */
 
   componentDidMount() {
-    this.wsEndpoint = new MyProfileService(this.context.bu, this.context.id, this.context.lang, this.context.wsBaseUrl);
+    this.wsEndpoint = new MyProfileService(this.context.value.bu, this.context.value.id, this.context.value.lang, this.context.value.wsBaseUrl);
 
-    this.wsEndpoint.get()
-      .then(fieldGroups => {
-        const sortedfieldGroups = sortBy(fieldGroups, 'order');
+    this.setState({ langBu: this.context.value.lang + '-' + this.context.value.bu });
+  }
 
-        this.setState({ fieldGroups:sortedfieldGroups });
-      })
-      .catch(error => {
-        this.setState({ wsException:true });
-
-        this.loggingEndpoint.post(wsUri, error, '500', options);
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.state.langBu !== prevState.langBu) {
+      this.fetchData();
+    }
+    
+    if (this.state.langBu !== this.context.value.lang + '-' + this.context.value.bu) {
+      this.setState({
+        langBu: this.context.value.lang + '-' + this.context.value.bu
       });
+    }
   }
 
   render() {

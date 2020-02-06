@@ -19,7 +19,7 @@ class Header extends React.Component {
     this.handleClick = (event, language) => {
       event.preventDefault();
 
-      this.context.setBusinessUnit(language);
+      this.context.setValue(language.lang, language.bu);
     }
   }
 
@@ -40,7 +40,7 @@ class Header extends React.Component {
       )
     });
 
-    const dropdownItemsFiltered = this.state.languages.filter(language => language.bu === this.context.bu && language.lang === this.context.lang);
+    const dropdownItemsFiltered = this.state.languages.filter(language => language.bu === this.context.value.bu && language.lang === this.context.value.lang);
 
     const dropdownLabel = dropdownItemsFiltered.map(dl => {
       return (
